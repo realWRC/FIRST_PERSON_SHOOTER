@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from source.settings import *
+from source.maps import *
 
 
 class Game:
@@ -13,10 +14,14 @@ class Game:
         pg.init()
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
+        self.newGame()
 
     def newGame(self):
-        """Starts a new instance of Game"""
-        pass
+        """
+        Starts a new instance of Game:
+            self.map - creates new map on every game
+        """
+        self.map = Map(self)
 
     def update(self):
         """Updates the state of the game"""
@@ -27,6 +32,7 @@ class Game:
     def draw(self):
         """Renders the game in the window"""
         self.screen.fill('black')
+        self.map.draw()
 
     def listenEvents(self):
         """Listens for keyboard to exit the game"""

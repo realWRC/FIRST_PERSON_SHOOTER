@@ -8,5 +8,5 @@ def calculateResolution(scale=1):
     return int(screen.current_w * scale), int(screen.current_h * scale)
 
 #SCREEN RESOLUTION
-RES = WIDTH, HEIGHT = calculateResolution(0.9)
+RES = WIDTH, HEIGHT = 1600, 900
 FPS = 60
