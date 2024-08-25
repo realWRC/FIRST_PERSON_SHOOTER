@@ -19,8 +19,8 @@ class Player:
               to keep the player speed independent
               of the frame rate
         """
-        angleSin =  math.sin(self.angle)
-        angleCos =  math.cos(self.angle)
+        angleSin = math.sin(self.angle)
+        angleCos = math.cos(self.angle)
         px, py = 0, 0
         speed = PLAYER_SPEED * self.game.deltaTime
         speedSin = speed * angleSin
@@ -40,13 +40,37 @@ class Player:
             px += -speedSin
             py += speedCos
 
-        self.x += px
-        self.y += py
+        self.wallCollision(px, py)
 
         if keys[pg.K_LEFT]:
             self.angle -= PLAYER_ROTATION_SPEED * self.game.deltaTime
         if keys[pg.K_RIGHT]:
             self.angle += PLAYER_ROTATION_SPEED * self.game.deltaTime
+
+    def update(self):
+        self.movement()
+
+    @property
+    def position(self):
+        """Returns Current Player Position"""
+        return self.x, self.y
+
+    @property
+    def mapPosition(self):
+        """Returns the tile on which the player is on"""
+        return int(self.x), int(self.y)
+
+    def getWallBounds(self, x, y):
+        """Returns position if there is no wall"""
+        if (x, y) not in self.game.map.gameWorld:
+            return (x, y)
+
+    def wallCollision(self, px, py):
+        """Collision detection logic for player and walls"""
+        if self.getWallBounds(int(self.x + px), int(self.y)):
+            self.x += px
+        if self.getWallBounds(int(self.x), int(self.y + py)):
+            self.y += py
 
     def testDraw(self):
         """Created a 2d representation of the player on 2D map"""
@@ -64,14 +88,3 @@ class Player:
             (self.x * 100, self.y * 100),
             15
         )
-
-    def update(self):
-        self.movement()
-
-    def position(self):
-        """Returns Current Player Position"""
-        return self.x, self.y
-    
-    def mapPosition(self):
-        """Returns the tile on which the player is on"""
-        return int(self.x), int(self.y)
