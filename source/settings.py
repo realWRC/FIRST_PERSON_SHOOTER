@@ -1,5 +1,6 @@
 import pygame as pg
 
+
 def calculateResolution(scale=1):
     """Calculates screen resolution for dynamic screen sizing"""
     pg.init()
@@ -7,6 +8,7 @@ def calculateResolution(scale=1):
     pg.quit()
     return int(screen.current_w * scale), int(screen.current_h * scale)
 
-#SCREEN RESOLUTION
+
+# SCREEN RESOLUTION
 RES = WIDTH, HEIGHT = 1600, 900
 FPS = 60

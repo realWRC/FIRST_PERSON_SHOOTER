@@ -10,7 +10,7 @@ class Game:
     """
 
     def __init__(self):
-        """Initialises Game Instance"""
+        """Initi Game Instance"""
         pg.init()
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()

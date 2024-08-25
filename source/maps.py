@@ -13,10 +13,12 @@ mapOne = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
+
 class Map:
     """Defines the class Map"""
 
     def __init__(self, game):
+        """Initialises and a Map"""
         self.game = game
         self.map = mapOne
         self.gameWorld = {}
@@ -29,8 +31,13 @@ class Map:
             for i, value in enumerate(row):
                 if value == 1:
                     self.gameWorld[(i, j)] = value
- 
+
     def draw(self):
         """Draws the Map for testing"""
         for point in self.gameWorld:
-            pg.draw.rect(self.game.screen, 'darkgray', (point[0] * 100, point[1] * 100, 100, 100), 2)
+            pg.draw.rect(
+                self.game.screen,
+                'darkgray',
+                (point[0] * 100, point[1] * 100, 100, 100),
+                2
+            )
