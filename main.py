@@ -2,7 +2,7 @@ import pygame as pg
 import sys
 from source.settings import *
 from source.maps import *
-
+from source.player import *
 
 class Game:
     """
@@ -14,6 +14,7 @@ class Game:
         pg.init()
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
+        self.deltaTime = 1
         self.newGame()
 
     def newGame(self):
@@ -22,17 +23,20 @@ class Game:
             self.map - creates new map on every game
         """
         self.map = Map(self)
+        self.player = Player(self)
 
     def update(self):
         """Updates the state of the game"""
+        self.player.update()
         pg.display.flip()
-        self.clock.tick(FPS)
+        self.deltaTime = self.clock.tick(FPS)
         pg.display.set_caption(f'{self.clock.get_fps():.1f}')
 
     def draw(self):
         """Renders the game in the window"""
         self.screen.fill('black')
-        self.map.draw()
+        self.map.testDraw()
+        self.player.testDraw()
 
     def listenEvents(self):
         """Listens for keyboard to exit the game"""

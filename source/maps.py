@@ -32,7 +32,7 @@ class Map:
                 if value == 1:
                     self.gameWorld[(i, j)] = value
 
-    def draw(self):
+    def testDraw(self):
         """Draws the Map for testing"""
         for point in self.gameWorld:
             pg.draw.rect(
