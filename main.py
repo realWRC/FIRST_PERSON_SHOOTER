@@ -38,8 +38,9 @@ class Game:
     def draw(self):
         """Renders the game in the window"""
         self.screen.fill('black')
-        self.map.testDraw()
-        self.player.testDraw()
+        if MODE == False:
+            self.map.testDraw()
+            self.player.testDraw()
 
     def listenEvents(self):
         """Listens for keyboard to exit the game"""

@@ -74,14 +74,15 @@ class Player:
 
     def testDraw(self):
         """Created a 2d representation of the player on 2D map"""
-        # pg.draw.line(
-        #     self.game.screen, "red", (self.x * 100, self.y * 100),
-        #     (
-        #         self.x * 100 + WIDTH * math.cos(self.angle),
-        #         self.y * 100 + WIDTH * math.sin(self.angle)
-        #     ),
-        #     2
-        # )
+        if LINEOFSIGHT == True:
+            pg.draw.line(
+                self.game.screen, "red", (self.x * 100, self.y * 100),
+                (
+                    self.x * 100 + WIDTH * math.cos(self.angle),
+                    self.y * 100 + WIDTH * math.sin(self.angle)
+                ),
+                2
+            )
         pg.draw.circle(
             self.game.screen,
             'yellow',

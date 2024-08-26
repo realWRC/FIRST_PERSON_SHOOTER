@@ -55,15 +55,27 @@ class RayCasting:
             else:
                 depth = depthVert
 
-            # Test Draw
-            pg.draw.line(
-                    self.game.screen, 'yellow', (100 * px, 100 * py),
+            # When True Renders In 3d, else 2D for testing
+            if MODE == True:
+                projectionHeight = SCREENDISTANCE / (depth + 0.0001)
+                color = [255 / (1 + depth ** 5 * 0.00001)] * 3
+                pg.draw.rect(
+                    self.game.screen,
+                    color,
                     (
-                        100 * px + 100 * depth * rayCos,
-                        100 * py + 100 * depth * raySin
-                    ),
-                    2
-            )
+                        ray * SCALE, HALFHEIGHT - projectionHeight // 2,
+                        SCALE, projectionHeight
+                    )
+                )
+            else:
+                pg.draw.line(
+                        self.game.screen, 'yellow', (100 * px, 100 * py),
+                        (
+                            100 * px + 100 * depth * rayCos,
+                            100 * py + 100 * depth * raySin
+                        ),
+                        2
+                )
             rayAngle += ANGLECHANGE
 
     def update(self):

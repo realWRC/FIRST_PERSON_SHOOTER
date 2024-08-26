@@ -8,10 +8,16 @@ def calculateResolution(scale=1):
     pg.quit()
     return int(screen.current_w * scale), int(screen.current_h * scale)
 
+# GAME SETTINGS
+# MODE RENDER IN 3D IF TRUE
+MODE = False
+LINEOFSIGHT = False
 
 # SCREEN SETTINGS
 RES = WIDTH, HEIGHT = 1600, 900
 FPS = 60
+HALFWIDTH = WIDTH // 2
+HALFHEIGHT = HEIGHT // 2
 
 # PLAYER MOVEMENT SETTINGS
 PLAYER_POSITION = 1.5, 5
@@ -26,3 +32,5 @@ RAYS = WIDTH // 2
 HRAYS = RAYS // 2
 ANGLECHANGE = FOV / RAYS
 MAX_DEPTH = 20
+SCREENDISTANCE = HALFWIDTH / math.tan(HFOV)
+SCALE = WIDTH // RAYS
