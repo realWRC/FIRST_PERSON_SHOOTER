@@ -48,6 +48,7 @@ class Player:
             self.angle += PLAYER_ROTATION_SPEED * self.game.deltaTime
 
     def update(self):
+        """Updates state of Player in core game loop"""
         self.movement()
 
     @property
