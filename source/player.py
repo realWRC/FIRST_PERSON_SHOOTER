@@ -85,7 +85,7 @@ class Player:
             )
         pg.draw.circle(
             self.game.screen,
-            'yellow',
+            'green',
             (self.x * 100, self.y * 100),
             15
         )

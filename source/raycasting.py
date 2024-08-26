@@ -54,6 +54,7 @@ class RayCasting:
                 depth = depthHort
             else:
                 depth = depthVert
+            depth *= math.cos(self.game.player.angle - rayAngle)
 
             # When True Renders In 3d, else 2D for testing
             if MODE == True:

@@ -10,7 +10,7 @@ def calculateResolution(scale=1):
 
 # GAME SETTINGS
 # MODE RENDER IN 3D IF TRUE
-MODE = False
+MODE = True
 LINEOFSIGHT = False
 
 # SCREEN SETTINGS
