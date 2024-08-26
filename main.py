@@ -1,5 +1,6 @@
 import pygame as pg
 import sys
+from source.raycasting import *
 from source.settings import *
 from source.maps import *
 from source.player import *
@@ -24,10 +25,12 @@ class Game:
         """
         self.map = Map(self)
         self.player = Player(self)
+        self.raycasting = RayCasting(self)
 
     def update(self):
         """Updates the state of the game"""
         self.player.update()
+        self.raycasting.update()
         pg.display.flip()
         self.deltaTime = self.clock.tick(FPS)
         pg.display.set_caption(f'{self.clock.get_fps():.1f}')
