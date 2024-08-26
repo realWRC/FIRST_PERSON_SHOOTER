@@ -57,7 +57,7 @@ class RayCasting:
             depth *= math.cos(self.game.player.angle - rayAngle)
 
             # When True Renders In 3d, else 2D for testing
-            if MODE == True:
+            if MODE is True:
                 projectionHeight = SCREENDISTANCE / (depth + 0.0001)
                 color = [255 / (1 + depth ** 5 * 0.00001)] * 3
                 pg.draw.rect(

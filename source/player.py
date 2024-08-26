@@ -74,7 +74,7 @@ class Player:
 
     def testDraw(self):
         """Created a 2d representation of the player on 2D map"""
-        if LINEOFSIGHT == True:
+        if LINEOFSIGHT is True:
             pg.draw.line(
                 self.game.screen, "red", (self.x * 100, self.y * 100),
                 (

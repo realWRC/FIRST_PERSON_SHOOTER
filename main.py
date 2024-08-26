@@ -38,7 +38,7 @@ class Game:
     def draw(self):
         """Renders the game in the window"""
         self.screen.fill('black')
-        if MODE == False:
+        if MODE is False:
             self.map.testDraw()
             self.player.testDraw()
 
