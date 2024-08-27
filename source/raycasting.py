@@ -8,7 +8,7 @@ class RayCasting:
 
     def __init__(self, game):
         """Initialises teh RayCast class with the game instance"""
-        self.game = game
+        self.game = game 
 
     def rayCast(self):
         """Defines raycasting logic"""

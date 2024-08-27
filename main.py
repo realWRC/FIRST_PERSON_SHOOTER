@@ -4,6 +4,7 @@ from source.raycasting import *
 from source.settings import *
 from source.maps import *
 from source.player import *
+from source.renderer import *
 
 class Game:
     """
@@ -25,6 +26,7 @@ class Game:
         """
         self.map = Map(self)
         self.player = Player(self)
+        self.renderer = Renderer(self)
         self.raycasting = RayCasting(self)
 
     def update(self):
