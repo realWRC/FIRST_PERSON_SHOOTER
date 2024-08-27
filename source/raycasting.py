@@ -105,7 +105,9 @@ class RayCasting:
             else:
                 depth *= math.cos(self.game.player.angle - rayAngle)
                 projectionHeight = SCREENDISTANCE / (depth + 0.0001)
-                self.rayCastResult.append((depth, projectionHeight, texture, offset))
+                self.rayCastResult.append(
+                    (depth, projectionHeight, texture, offset)
+                )
 
             rayAngle += ANGLECHANGE
 
