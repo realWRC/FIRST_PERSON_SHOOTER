@@ -42,14 +42,11 @@ class Player:
 
         self.wallCollision(px, py)
 
-        if keys[pg.K_LEFT]:
-            self.angle -= PLAYER_ROTATION_SPEED * self.game.deltaTime
-        if keys[pg.K_RIGHT]:
-            self.angle += PLAYER_ROTATION_SPEED * self.game.deltaTime
-
-    def update(self):
-        """Updates state of Player in core game loop"""
-        self.movement()
+        if ENABLE_KEY_ROTATION is True:
+            if keys[pg.K_LEFT]:
+                self.angle -= PLAYER_ROTATION_SPEED * self.game.deltaTime
+            if keys[pg.K_RIGHT]:
+                self.angle += PLAYER_ROTATION_SPEED * self.game.deltaTime
 
     @property
     def position(self):
@@ -68,10 +65,23 @@ class Player:
 
     def wallCollision(self, px, py):
         """Collision detection logic for player and walls"""
-        if self.getWallBounds(int(self.x + px), int(self.y)):
+        playerScale = PLAYERSCALE / self.game.deltaTime
+        if self.getWallBounds(int(self.x + (px * playerScale)), int(self.y)):
             self.x += px
-        if self.getWallBounds(int(self.x), int(self.y + py)):
+        if self.getWallBounds(int(self.x), int(self.y + (py * playerScale))):
             self.y += py
+
+    def mouseControl(self):
+        """Controls Player object with mouse"""
+        mx, my = pg.mouse.get_pos()
+        if mx < MOUSE_LEFT_BORDER or mx > MOUSE_RIGHT_BORDER:
+            pg.mouse.set_pos([HALFWIDTH, HALFHEIGHT])
+        self.relativePosition = pg.mouse.get_rel()[0]
+        self.relativePosition = max(
+            -MOUSE_MAX_REL, min(MOUSE_MAX_REL, self.relativePosition)
+        )
+        self.angle += self.relativePosition * MOUSESENTITIVITY *\
+            self.game.deltaTime
 
     def testDraw(self):
         """Created a 2d representation of the player on 2D map"""
@@ -90,3 +100,9 @@ class Player:
             (self.x * 100, self.y * 100),
             15
         )
+
+    def update(self):
+        """Updates state of Player in core game loop"""
+        self.movement()
+        if ENABLE_MOUSE is True:
+            self.mouseControl()

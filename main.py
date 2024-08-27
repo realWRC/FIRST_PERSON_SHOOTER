@@ -15,6 +15,8 @@ class Game:
     def __init__(self):
         """Initi Game Instance"""
         pg.init()
+        if DISABLE_MOUSE_VISIBILITY is True:
+            pg.mouse.set_visible(False)
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
         self.deltaTime = 1
