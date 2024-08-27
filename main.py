@@ -6,6 +6,7 @@ from source.maps import *
 from source.player import *
 from source.renderer import *
 
+
 class Game:
     """
     The class Game defines all methods that form the core game loop
@@ -40,6 +41,7 @@ class Game:
     def draw(self):
         """Renders the game in the window"""
         self.screen.fill('black')
+        self.renderer.draw()
         if MODE is False:
             self.map.testDraw()
             self.player.testDraw()

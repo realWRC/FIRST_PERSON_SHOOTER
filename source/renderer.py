@@ -10,7 +10,17 @@ class Renderer:
         self.game = game
         self.screen = game.screen
         self.wallTexture = self.loadWallTexture()
+    
+    def draw(self):
+        """Calls rendering method"""
+        self.renderTextures()
 
+    def renderTextures(self):
+        """Renders textures"""
+        list_objects = self.game.raycasting.objectRenderList
+        for depth, image, pos in list_objects:
+            self.screen.blit(image, pos)
+    
     @staticmethod
     def getTexture(location, resolution=(TEXTURESIZE, TEXTURESIZE)):
         """Gets a texture and scales it approprietly"""

@@ -8,12 +8,31 @@ class RayCasting:
 
     def __init__(self, game):
         """Initialises teh RayCast class with the game instance"""
-        self.game = game 
+        self.game = game
+        self.rayCastResult = []
+        self.objectRenderList = []
+        self.textures = self.game.renderer.wallTexture
+
+    def getObjectRenderList(self):
+        """Get object render list"""
+        self.objectRenderList = []
+        for ray, values in enumerate(self.rayCastResult):
+            depth, proj_heiht, texture, offset = values
+
+            wall_column = self.textures[texture].subsurface(
+                offset * (TEXTURESIZE - SCALE), 0, SCALE, TEXTURESIZE
+            )
+            wall_column = pg.transform.scale(wall_column, (SCALE, proj_heiht))
+            wall_pos = (ray * SCALE, HALFHEIGHT - proj_heiht // 2)
+
+            self.objectRenderList.append((depth, wall_column, wall_pos))
 
     def rayCast(self):
         """Defines raycasting logic"""
+        self.rayCastResult = []
         px, py = self.game.player.position
         mapX, mapY = self.game.player.mapPosition
+        textureVert, textureHort = 1, 1
 
         rayAngle = self.game.player.angle - HFOV + 0.0001
         for ray in range(RAYS):
@@ -30,6 +49,7 @@ class RayCasting:
             for i in range(MAX_DEPTH):
                 tileHort = int(xHort), int(yHort)
                 if tileHort in self.game.map.gameWorld:
+                    textureHort = self.game.map.gameWorld[tileHort]
                     break
                 xHort += dx
                 yHort += dy
@@ -45,40 +65,52 @@ class RayCasting:
             for i in range(MAX_DEPTH):
                 tileVert = int(xVert), int(yVert)
                 if tileVert in self.game.map.gameWorld:
+                    textureVert = self.game.map.gameWorld[tileVert]
                     break
                 xVert += dx
                 yVert += dy
                 depthVert += depthChange
 
             if depthHort < depthVert:
-                depth = depthHort
+                depth, texture = depthHort, textureHort
+                xHort %= 1
+                offset = (1 - xHort) if raySin > 0 else xHort
             else:
-                depth = depthVert
+                depth, texture = depthVert, textureVert
+                yVert %= 1
+                offset = yVert if rayCos > 0 else (1 - yVert)
+
+            # Fish bowl effect remover
             depth *= math.cos(self.game.player.angle - rayAngle)
 
+            projectionHeight = SCREENDISTANCE / (depth + 0.0001)
+
+            self.rayCastResult.append((depth, projectionHeight, texture, offset))
+            
             # When True Renders In 3d, else 2D for testing
-            if MODE is True:
-                projectionHeight = SCREENDISTANCE / (depth + 0.0001)
-                color = [255 / (1 + depth ** 5 * 0.00001)] * 3
-                pg.draw.rect(
-                    self.game.screen,
-                    color,
-                    (
-                        ray * SCALE, HALFHEIGHT - projectionHeight // 2,
-                        SCALE, projectionHeight
-                    )
-                )
-            else:
-                pg.draw.line(
-                        self.game.screen, 'yellow', (100 * px, 100 * py),
-                        (
-                            100 * px + 100 * depth * rayCos,
-                            100 * py + 100 * depth * raySin
-                        ),
-                        2
-                )
+            # if MODE is True:
+            #     color = [255 / (1 + depth ** 5 * 0.00001)] * 3
+            #     pg.draw.rect(
+            #         self.game.screen,
+            #         color,
+            #         (
+            #             ray * SCALE, HALFHEIGHT - projectionHeight // 2,
+            #             SCALE, projectionHeight
+            #         )
+            #     )
+            # else:
+            #     pg.draw.line(
+            #             self.game.screen, 'yellow', (100 * px, 100 * py),
+            #             (
+            #                 100 * px + 100 * depth * rayCos,
+            #                 100 * py + 100 * depth * raySin
+            #             ),
+            #             2
+            #     )
+
             rayAngle += ANGLECHANGE
 
     def update(self):
         """Updates the RayCast state"""
         self.rayCast()
+        self.getObjectRenderList()
