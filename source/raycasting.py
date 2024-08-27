@@ -80,33 +80,32 @@ class RayCasting:
                 yVert %= 1
                 offset = yVert if rayCos > 0 else (1 - yVert)
 
-            # Fish bowl effect remover
-            depth *= math.cos(self.game.player.angle - rayAngle)
-
-            projectionHeight = SCREENDISTANCE / (depth + 0.0001)
-
-            self.rayCastResult.append((depth, projectionHeight, texture, offset))
-            
-            # When True Renders In 3d, else 2D for testing
-            # if MODE is True:
-            #     color = [255 / (1 + depth ** 5 * 0.00001)] * 3
-            #     pg.draw.rect(
-            #         self.game.screen,
-            #         color,
-            #         (
-            #             ray * SCALE, HALFHEIGHT - projectionHeight // 2,
-            #             SCALE, projectionHeight
-            #         )
-            #     )
-            # else:
-            #     pg.draw.line(
-            #             self.game.screen, 'yellow', (100 * px, 100 * py),
-            #             (
-            #                 100 * px + 100 * depth * rayCos,
-            #                 100 * py + 100 * depth * raySin
-            #             ),
-            #             2
-            #     )
+            # Testing Logic
+            if MODE == 'Test' and TESTMODE == '3D':
+                depth *= math.cos(self.game.player.angle - rayAngle)
+                projectionHeight = SCREENDISTANCE / (depth + 0.0001)
+                color = [255 / (1 + depth ** 5 * 0.00001)] * 3
+                pg.draw.rect(
+                    self.game.screen,
+                    color,
+                    (
+                        ray * SCALE, HALFHEIGHT - projectionHeight // 2,
+                        SCALE, projectionHeight
+                    )
+                )
+            elif MODE == 'Test' and TESTMODE == '2D':
+                pg.draw.line(
+                        self.game.screen, 'yellow', (100 * px, 100 * py),
+                        (
+                            100 * px + 100 * depth * rayCos,
+                            100 * py + 100 * depth * raySin
+                        ),
+                        2
+                )
+            else:
+                depth *= math.cos(self.game.player.angle - rayAngle)
+                projectionHeight = SCREENDISTANCE / (depth + 0.0001)
+                self.rayCastResult.append((depth, projectionHeight, texture, offset))
 
             rayAngle += ANGLECHANGE
 

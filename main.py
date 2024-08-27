@@ -41,10 +41,12 @@ class Game:
     def draw(self):
         """Renders the game in the window"""
         self.screen.fill('black')
-        self.renderer.draw()
-        if MODE is False:
-            self.map.testDraw()
-            self.player.testDraw()
+        if MODE == 'Test':
+            if TESTMODE == '2D':
+                self.map.testDraw()
+                self.player.testDraw()
+        else:
+            self.renderer.draw()
 
     def listenEvents(self):
         """Listens for keyboard to exit the game"""

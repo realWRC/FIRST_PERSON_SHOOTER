@@ -10,8 +10,10 @@ import math
 #     return int(screen.current_w * scale), int(screen.current_h * scale)
 
 # GAME SETTINGS
-# MODE RENDER IN 3D IF TRUE
-MODE = True
+# MODES 3D, Test
+# TESTMODES 2D, 3D
+MODE = '3D'
+TESTMODE = '3D'
 LINEOFSIGHT = False
 
 # SCREEN SETTINGS
