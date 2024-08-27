@@ -17,15 +17,30 @@ class RayCasting:
         """Get object render list"""
         self.objectRenderList = []
         for ray, values in enumerate(self.rayCastResult):
-            depth, proj_heiht, texture, offset = values
+            depth, projectionHeight, texture, displacement = values
 
-            wall_column = self.textures[texture].subsurface(
-                offset * (TEXTURESIZE - SCALE), 0, SCALE, TEXTURESIZE
-            )
-            wall_column = pg.transform.scale(wall_column, (SCALE, proj_heiht))
-            wall_pos = (ray * SCALE, HALFHEIGHT - proj_heiht // 2)
+            if projectionHeight < HEIGHT:
+                wallStrip = self.textures[texture].subsurface(
+                    displacement * (TEXTURESIZE - SCALE), 0, SCALE, TEXTURESIZE
+                )
+                wallStrip = pg.transform.scale(
+                    wallStrip, (SCALE, projectionHeight)
+                )
+                position = (ray * SCALE, HALFHEIGHT - projectionHeight // 2)
+            else:
+                textureHeight = TEXTURESIZE * HEIGHT / projectionHeight
+                wallStrip = self.textures[texture].subsurface(
+                    displacement * (TEXTURESIZE - SCALE),
+                    HALFTEXTURESIZE - (textureHeight // 2),
+                    SCALE,
+                    textureHeight
+                )
+                wallStrip = pg.transform.scale(
+                    wallStrip, (SCALE, HEIGHT)
+                )
+                position = (ray * SCALE, 0)
 
-            self.objectRenderList.append((depth, wall_column, wall_pos))
+            self.objectRenderList.append((depth, wallStrip, position))
 
     def rayCast(self):
         """Defines raycasting logic"""
@@ -74,11 +89,11 @@ class RayCasting:
             if depthHort < depthVert:
                 depth, texture = depthHort, textureHort
                 xHort %= 1
-                offset = (1 - xHort) if raySin > 0 else xHort
+                displacement = (1 - xHort) if raySin > 0 else xHort
             else:
                 depth, texture = depthVert, textureVert
                 yVert %= 1
-                offset = yVert if rayCos > 0 else (1 - yVert)
+                displacement = yVert if rayCos > 0 else (1 - yVert)
 
             # Testing Logic
             if MODE == 'Test' and TESTMODE == '3D':
@@ -106,7 +121,7 @@ class RayCasting:
                 depth *= math.cos(self.game.player.angle - rayAngle)
                 projectionHeight = SCREENDISTANCE / (depth + 0.0001)
                 self.rayCastResult.append(
-                    (depth, projectionHeight, texture, offset)
+                    (depth, projectionHeight, texture, displacement)
                 )
 
             rayAngle += ANGLECHANGE
