@@ -10,9 +10,14 @@ class Renderer:
         self.game = game
         self.screen = game.screen
         self.wallTexture = self.loadWallTexture()
+        self.skyDisplacement = 0
+        self.skyTexture = self.getTexture(
+            'resources/textures/sky_texture.png', (WIDTH, HALFHEIGHT)
+        )
 
     def draw(self):
         """Calls rendering method"""
+        self.drawSky()
         self.renderTextures()
 
     def renderTextures(self):
@@ -20,6 +25,16 @@ class Renderer:
         list_objects = self.game.raycasting.objectRenderList
         for depth, image, pos in list_objects:
             self.screen.blit(image, pos)
+    
+    def drawSky(self):
+        """Draws the Sky and Floor of a Map"""
+        self.skyDisplacement = (
+            self.skyDisplacement + 4.5 * self.game.player.relativePosition
+        ) % WIDTH
+        self.screen.blit(self.skyTexture, (-self.skyDisplacement, 0))
+        self.screen.blit(self.skyTexture, (-self.skyDisplacement + WIDTH, 0))
+        #floor
+        pg.draw.rect(self.screen, FLOORCOLOR, (0, HALFHEIGHT, WIDTH, HEIGHT))
 
     @staticmethod
     def getTexture(location, resolution=(TEXTURESIZE, TEXTURESIZE)):

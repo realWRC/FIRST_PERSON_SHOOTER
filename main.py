@@ -42,7 +42,7 @@ class Game:
 
     def draw(self):
         """Renders the game in the window"""
-        self.screen.fill('black')
+        # self.screen.fill('black')
         if MODE == 'Test':
             if TESTMODE == '2D':
                 self.map.testDraw()
