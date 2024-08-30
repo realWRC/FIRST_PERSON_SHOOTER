@@ -42,7 +42,7 @@ class Player:
 
         self.wallCollision(px, py)
 
-        if ENABLE_KEY_ROTATION == True:
+        if ENABLE_KEY_ROTATION is True:
             if buttons[pg.K_LEFT]:
                 self.angle -= PLAYER_ROTATION_SPEED * self.game.deltaTime
             if buttons[pg.K_RIGHT]:
