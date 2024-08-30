@@ -5,6 +5,7 @@ from source.settings import *
 from source.maps import *
 from source.player import *
 from source.renderer import *
+from source.sprites import *
 
 
 class Game:
@@ -31,11 +32,13 @@ class Game:
         self.player = Player(self)
         self.renderer = Renderer(self)
         self.raycasting = RayCasting(self)
+        self.staticSprite = Sprite(self)
 
     def update(self):
         """Updates the state of the game"""
         self.player.update()
         self.raycasting.update()
+        self.staticSprite.update()
         pg.display.flip()
         self.deltaTime = self.clock.tick(FPS)
         pg.display.set_caption(f'{self.clock.get_fps():.1f}')
