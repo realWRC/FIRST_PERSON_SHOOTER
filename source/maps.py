@@ -35,4 +35,10 @@ class Map:
 
     def testDraw(self):
         """Draws the Map for testing"""
-        [pg.draw.rect(self.game.screen, 'black', (position[0] * 100, position[1] * 100, 100, 100), 2) for position in self.gameWorld]
+        for point in self.gameWorld:
+            pg.draw.rect(
+                self.game.screen,
+                'black',
+                (point[0] * 100, point[1] * 100, 100, 100),
+                2
+            )
