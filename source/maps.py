@@ -13,6 +13,7 @@ mapOne = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
+
 class Map:
     """Defines the class Map"""
 
