@@ -3,29 +3,40 @@ from source.settings import *
 
 
 class Renderer:
-    """Defines methods for rendering objects"""
-
     def __init__(self, game):
-        """Initalises object render"""
+        """Defines methods for rendering objects"""
         self.game = game
         self.screen = game.screen
-        self.wallTexture = self.loadWallTexture()
+        self.wallTextures = self.loadWallTextures()
         self.skyDisplacement = 0
         self.skyTexture = self.getTexture(
-            'resources/textures/sky_texture.png', (WIDTH, HALFHEIGHT)
+                'resources/textures/stars.png',
+                (WIDTH, HALF_HEIGHT)
         )
 
-    def draw(self):
-        """Calls rendering method"""
-        self.drawSky()
-        self.renderTextures()
+    @staticmethod
+    def getTexture(path, resolution=(TEXTURE_SIZE, TEXTURE_SIZE)):
+        """Gets a texture and scales it approprietly"""
+        texture = pg.image.load(path).convert_alpha()
+        return pg.transform.scale(texture, resolution)
+
+    def loadWallTextures(self):
+        """Loads wall textures"""
+        return {
+            1: self.getTexture('resources/textures/block_wall.png'),
+            2: self.getTexture('resources/textures/brick_wall.png'),
+        }
 
     def renderTextures(self):
-        """Renders textures"""
-        list_objects = self.game.raycasting.objectRenderList
-        for depth, image, pos in list_objects:
-            self.screen.blit(image, pos)
-    
+        """Renders textures in textureList"""
+        textureList = sorted(
+                self.game.raycasting.objectRenderList,
+                key=lambda t: t[0],
+                reverse=True
+        )
+        for depth, image, position in textureList:
+            self.screen.blit(image, position)
+
     def drawSky(self):
         """Draws the Sky and Floor of a Map"""
         self.skyDisplacement = (
@@ -33,18 +44,14 @@ class Renderer:
         ) % WIDTH
         self.screen.blit(self.skyTexture, (-self.skyDisplacement, 0))
         self.screen.blit(self.skyTexture, (-self.skyDisplacement + WIDTH, 0))
-        #floor
-        pg.draw.rect(self.screen, FLOORCOLOR, (0, HALFHEIGHT, WIDTH, HEIGHT))
+        # floor
+        pg.draw.rect(
+            self.screen,
+            GROUND_COLOR,
+            (0, HALF_HEIGHT, WIDTH, HEIGHT)
+        )
 
-    @staticmethod
-    def getTexture(location, resolution=(TEXTURESIZE, TEXTURESIZE)):
-        """Gets a texture and scales it approprietly"""
-        texture = pg.image.load(location).convert_alpha()
-        return pg.transform.scale(texture, resolution)
-
-    def loadWallTexture(self):
-        """Loads wall textures"""
-        return {
-            1: self.getTexture('resources/textures/block_wall.png'),
-            2: self.getTexture('resources/textures/brick_wall.png'),
-        }
+    def draw(self):
+        """Calls/Executes rendering methods"""
+        self.drawSky()
+        self.renderTextures()
