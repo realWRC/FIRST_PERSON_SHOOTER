@@ -22,22 +22,17 @@ class Map:
         self.game = game
         self.map = mapOne
         self.gameWorld = {}
+        self.horizontals = len(self.map)
+        self.verticals = len(self.map[0])
         self.getMap()
-        self.original_width, self.original_height = self.game.screen.get_size()
 
     def getMap(self):
         """Constructes the gameWorld"""
-        for j, row in enumerate(self.map):
-            for i, value in enumerate(row):
+        for y, horizontal in enumerate(self.map):
+            for x, value in enumerate(horizontal):
                 if value != 0:
-                    self.gameWorld[(i, j)] = value
+                    self.gameWorld[(x, y)] = value
 
     def testDraw(self):
         """Draws the Map for testing"""
-        for point in self.gameWorld:
-            pg.draw.rect(
-                self.game.screen,
-                'darkgray',
-                (point[0] * 100, point[1] * 100, 100, 100),
-                2
-            )
+        [pg.draw.rect(self.game.screen, 'black', (position[0] * 100, position[1] * 100, 100, 100), 2) for position in self.gameWorld]
