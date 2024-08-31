@@ -39,7 +39,7 @@ class Sprite:
         deltaAngle = self.thetaAngle - self.player.angle
         if (px > 0 and self.player.angle > math.pi) or (px < 0 and py < 0):
             deltaAngle += math.tau
-        
+
         deltaChange = deltaAngle / ANGLE_CHANGE
         self.screenX = (HALF_NUMB_RAYS + deltaChange) * SCALE
         self.distance = math.hypot(px, py)
@@ -47,7 +47,7 @@ class Sprite:
         if -self.IMG_HALF_WIDTH < self.screenX < \
                 (WIDTH + self.IMG_HALF_WIDTH) and self.normDistance > 0.5:
             self.getProjection()
-        
+
     def getProjection(self):
         """Gets the position and distance values to be used for projection"""
         projection = SCREEN_DISTANCE / self.normDistance * self.SPRITE_SCALE
@@ -60,13 +60,14 @@ class Sprite:
         heightDisplacment = projectionHeight * self.SPRITE_HEIGHT_SHIFT
         pos = self.screenX - self.spriteHalfWidth, HALF_HEIGHT - \
             projectionHeight // 2 + heightDisplacment
-        
+
         # Append sprites to rendering list
         self.game.raycasting.objectRenderList.append(
                 (self.normDistance, image, pos)
         )
-    
+
     def update(self):
+        """Executes Sprite class methods"""
         self.getSprite()
 
 
@@ -76,12 +77,13 @@ class AnimatedSprite(Sprite):
     def __init__(
             self,
             game,
-            position=(10.5, 4.5),
+            position=(11, 3.5),
             scale=0.7,
             change=0.27,
             duration=170,
             path='resources/sprites/animated/torch_one/0.png'
     ):
+        """Initialises Animated Sprite Class"""
         super().__init__(game, position, scale, change, path)
         self.duration = duration
         self.path = path.rsplit('/', 1)[0]
