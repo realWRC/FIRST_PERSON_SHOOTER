@@ -8,6 +8,7 @@ from source.renderer import *
 from source.sprites import *
 from source.spritemanager import *
 from source.weapons import *
+from source.audio import *
 
 
 class Game:
@@ -38,6 +39,7 @@ class Game:
         # self.animatedSprite = AnimatedSprite(self)
         self.spriteManager = SpriteManager(self)
         self.weapon = Weapon(self)
+        self.audio = Audio(self)
 
     def update(self):
         """Updates the state of the game"""
