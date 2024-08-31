@@ -1,4 +1,6 @@
 import pygame as pg
+import os
+from collections import deque
 from source.settings import *
 
 
@@ -66,3 +68,52 @@ class Sprite:
     
     def update(self):
         self.getSprite()
+
+
+class AnimatedSprite(Sprite):
+    """Defines methods for animated Sprites"""
+
+    def __init__(
+            self,
+            game,
+            position=(10.5, 4.5),
+            scale=0.7,
+            change=0.27,
+            duration=170,
+            path='resources/sprites/animated/torch_one/0.png'
+    ):
+        super().__init__(game, position, scale, change, path)
+        self.duration = duration
+        self.path = path.rsplit('/', 1)[0]
+        self.frames = self.getFrames(self.path)
+        self.durationPrev = pg.time.get_ticks()
+        self.animationTrigger = False
+
+    def getFrames(self, path):
+        """Gets images/frames to use in the animation"""
+        frames = deque()
+        for directory in os.listdir(path):
+            if os.path.isfile(os.path.join(path, directory)):
+                img = pg.image.load(path + '/' + directory).convert_alpha()
+                frames.append(img)
+        return frames
+
+    def durationCheck(self):
+        """Determines weather to change frames via animation trigger"""
+        self.animationTrigger = False
+        currentTime = pg.time.get_ticks()
+        if currentTime - self.durationPrev > self.duration:
+            self.durationPrev = currentTime
+            self.animationTrigger = True
+
+    def animate(self, frames):
+        """Swaps frames to render based on animationTrigger"""
+        if self.animationTrigger:
+            frames.rotate(-1)
+            self.image = frames[0]
+
+    def update(self):
+        """Executes animation methods"""
+        super().update()
+        self.durationCheck()
+        self.animate(self.frames)
