@@ -11,6 +11,7 @@ class Player:
         self.game = game
         self.x, self.y = PLAYER_POSITION
         self.angle = PLAYER_ANGLE
+        self.fire = False
 
     def movement(self):
         """
@@ -49,6 +50,14 @@ class Player:
                 self.angle += PLAYER_ROTATION_SPEED * self.game.deltaTime
 
         self.angle %= math.tau
+
+    def oneShotEvent(self, event):
+        """Listens for shoot input from left mouse button"""
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if event.button == 1 and not self.fire and\
+                    not self.game.weapon.reload:
+                self.fire = True
+                self.game.weapon.reload = True
 
     @property
     def position(self):

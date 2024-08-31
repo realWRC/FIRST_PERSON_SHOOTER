@@ -69,6 +69,7 @@ class Game:
                   (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+            self.player.oneShotEvent(event)
 
     def run(self):
         """Executes the game loop"""
