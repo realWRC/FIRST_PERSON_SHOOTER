@@ -10,7 +10,7 @@ class Sprite:
     def __init__(
             self,
             game,
-            position=(10.5, 3.5),
+            position=(5, 4),
             scale=0.7,
             change=0.27,
             path='resources/sprites/static/plant.png'
@@ -77,7 +77,7 @@ class AnimatedSprite(Sprite):
     def __init__(
             self,
             game,
-            position=(11, 3.5),
+            position=(5, 3.5),
             scale=0.7,
             change=0.27,
             duration=170,
