@@ -35,8 +35,6 @@ class Game:
         self.player = Player(self)
         self.renderer = Renderer(self)
         self.raycasting = RayCasting(self)
-        # self.staticSprite = Sprite(self)
-        # self.animatedSprite = AnimatedSprite(self)
         self.spriteManager = SpriteManager(self)
         self.weapon = Weapon(self)
         self.audio = Audio(self)
@@ -47,16 +45,14 @@ class Game:
         self.raycasting.update()
         self.spriteManager.update()
         self.weapon.update()
-        # self.staticSprite.update()
-        # self.animatedSprite.update()
         pg.display.flip()
         self.deltaTime = self.clock.tick(FPS)
         pg.display.set_caption(f'{self.clock.get_fps():.1f}')
 
     def draw(self):
         """Renders the game in the window"""
-        # self.screen.fill('black')
         if MODE == 'Test':
+            self.screen.fill('black')
             if TESTMODE == '2D':
                 self.map.testDraw()
                 self.player.testDraw()

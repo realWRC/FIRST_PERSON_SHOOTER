@@ -38,7 +38,7 @@ class Map:
         for point in self.gameWorld:
             pg.draw.rect(
                 self.game.screen,
-                'black',
+                'white',
                 (point[0] * 100, point[1] * 100, 100, 100),
                 2
             )
