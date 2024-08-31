@@ -7,6 +7,7 @@ from source.player import *
 from source.renderer import *
 from source.sprites import *
 from source.spritemanager import *
+from source.weapons import *
 
 
 class Game:
@@ -36,12 +37,14 @@ class Game:
         # self.staticSprite = Sprite(self)
         # self.animatedSprite = AnimatedSprite(self)
         self.spriteManager = SpriteManager(self)
+        self.weapon = Weapon(self)
 
     def update(self):
         """Updates the state of the game"""
         self.player.update()
         self.raycasting.update()
         self.spriteManager.update()
+        self.weapon.update()
         # self.staticSprite.update()
         # self.animatedSprite.update()
         pg.display.flip()
@@ -57,6 +60,7 @@ class Game:
                 self.player.testDraw()
         else:
             self.renderer.draw()
+            self.weapon.draw()
 
     def listenEvents(self):
         """Listens for keyboard to exit the game"""
