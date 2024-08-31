@@ -9,7 +9,7 @@ import math
 #     return int(screen.current_w * scale), int(screen.current_h * scale)
 
 # MODE SETTINGS
-MODE = 'Test'
+MODE = '3D'
 TESTMODE = '2D'
 LINEOFSIGHT = False
 
