@@ -81,6 +81,11 @@ class Enemy(AnimatedSprite):
         if self.health < 1:
             self.alive = False
             self.game.audio.enemyDeath.play()
+    
+    def attack(self):
+        if self.animationTrigger:
+            if MODE != 'Test':
+                self.game.audio.enemyFire.play()
 
     @property
     def enemyMapPosition(self):
