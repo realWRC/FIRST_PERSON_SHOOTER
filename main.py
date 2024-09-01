@@ -24,6 +24,9 @@ class Game:
         self.screen = pg.display.set_mode(RES)
         self.clock = pg.time.Clock()
         self.deltaTime = 1
+        self.universalTrigger = False
+        self.universalEvent = pg.USEREVENT + 0
+        pg.time.set_timer(self.universalEvent, 40)
         self.newGame()
 
     def newGame(self):
@@ -51,6 +54,7 @@ class Game:
 
     def draw(self):
         """Renders the game in the window"""
+        # self.screen.fill('black')
         if MODE == 'Test':
             self.screen.fill('black')
             if TESTMODE == '2D':
@@ -61,12 +65,15 @@ class Game:
             self.weapon.draw()
 
     def listenEvents(self):
+        self.universalTrigger = False
         """Listens for keyboard to exit the game"""
         for event in pg.event.get():
             if event.type == pg.QUIT or\
                   (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+            elif event.type == self.universalEvent:
+                self.universalTrigger = True
             self.player.oneShotEvent(event)
 
     def run(self):
