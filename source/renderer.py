@@ -13,6 +13,10 @@ class Renderer:
                 'resources/textures/stars.png',
                 (WIDTH, HALF_HEIGHT)
         )
+        self.gameOver = self.getTexture(
+            'resources/textures/game_over.png',
+            RES,
+        )
 
     @staticmethod
     def getTexture(path, resolution=(TEXTURE_SIZE, TEXTURE_SIZE)):
@@ -50,6 +54,10 @@ class Renderer:
             GROUND_COLOR,
             (0, HALF_HEIGHT, WIDTH, HEIGHT)
         )
+    
+    def drawGameOver(self):
+        """Renders game over screen"""
+        self.screen.blit(self.gameOver, (0, 0))
 
     def draw(self):
         """Calls/Executes rendering methods"""

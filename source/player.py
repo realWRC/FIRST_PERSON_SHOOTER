@@ -11,6 +11,8 @@ class Player:
         self.game = game
         self.x, self.y = PLAYER_POSITION
         self.angle = PLAYER_ANGLE
+        self.health = PLAYER_MAX_HEALTH
+        self.relativePosition = 0
         self.fire = False
 
     def movement(self):
@@ -59,6 +61,19 @@ class Player:
                 self.game.audio.shotgun.play()
                 self.fire = True
                 self.game.weapon.reload = True
+ 
+    def getDamage(self, damage):
+        """Controls How much damage the player gets"""
+        self.health -= damage
+        self.game.audio.playerPain.play()
+        self.check_game_over()
+    
+    def check_game_over(self):
+        if self.health < 1:
+            self.game.renderer.drawGameOver()
+            pg.display.flip()
+            pg.time.delay(3000)
+            self.game.newGame()
 
     @property
     def position(self):

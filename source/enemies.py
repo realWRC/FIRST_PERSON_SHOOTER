@@ -86,6 +86,8 @@ class Enemy(AnimatedSprite):
         if self.animationTrigger:
             if MODE != 'Test':
                 self.game.audio.enemyFire.play()
+                if random() < self.percision:
+                    self.game.player.getDamage(self.enemyDamage)
 
     @property
     def enemyMapPosition(self):
