@@ -32,3 +32,7 @@ class Enemy(AnimatedSprite):
         self.sightLineCheker = False
         self.animationFrameCounter = 0
         self.searchActivate = False
+
+    def update(self):
+        self.durationCheck()
+        self.getSprite()
