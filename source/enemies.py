@@ -76,10 +76,18 @@ class Enemy(AnimatedSprite):
                 self.pain = True
                 self.health -= self.game.weapon.damage
                 self.checkHealth()
+    
+    def checkHealth(self):
+        if self.health < 1:
+            self.alive = False
+            self.game.audio.enemyDeath.play()
 
     @property
     def enemyMapPosition(self):
         return int(self.x), int(self.y)
+    
+    def getWallBounds(self, x, y):
+        return (x, y) not in self.game.map.gameWorld
     
     def rayCastSightLine(self):
         if self.game.player.mapPosition == self.enemyMapPosition:
@@ -149,6 +157,12 @@ class Enemy(AnimatedSprite):
             ex = math.cos(angle) * self.movementSpeed
             ey = math.sin(angle) * self.movementSpeed
             self.wallCollusion(ex, ey)
+    
+    def wallCollusion(self, dx, dy):
+        if self.getWallBounds(int(self.x + dx * self.size), int(self.y)):
+            self.x += dx
+        if self.getWallBounds(int(self.x), int(self.y + dy * self.size)):
+            self.y += dy
 
     def update(self):
         self.durationCheck()
