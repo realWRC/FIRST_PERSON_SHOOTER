@@ -33,6 +33,31 @@ class Enemy(AnimatedSprite):
         self.animationFrameCounter = 0
         self.searchActivate = False
 
+    def enemyLogic(self):
+        if self.alive:
+            self.sightLineCheker = self.rayCastSightLine()
+            
+            self.shotHitDetection()
+            if self.pain:
+                self.animatePain()
+            elif self.sightLineCheker:
+                self.searchActivate = True
+                if self.distance < self.attackRange:
+                    self.animate(self.attackAnimation)
+                    self.attack()
+                else:
+                    self.animate(self.searchAnimation)
+                    self.movement()
+            elif self.searchActivate:
+                self.animate(self.searchAnimation)
+                self.movement()
+            else:
+                self.animate(self.idleAnimtion)
+        else:
+            self.animateDeath()
+
     def update(self):
         self.durationCheck()
         self.getSprite()
+        self.enemyLogic()
+        self.testDraw()
