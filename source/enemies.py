@@ -68,6 +68,15 @@ class Enemy(AnimatedSprite):
                 self.image = self.deathAnimation[0]
                 self.animationFrameCounter += 1
     
+    def shotHitDetection(self):
+        if self.sightLineCheker and self.game.player.fire:
+            if HALF_WIDTH - self.spriteHalfWidth < self.screenX < HALF_WIDTH + self.spriteHalfWidth:
+                self.game.audio.enemyPain.play()
+                self.game.player.fire = False
+                self.pain = True
+                self.health -= self.game.weapon.damage
+                self.checkHealth()
+
     @property
     def enemyMapPosition(self):
         return int(self.x), int(self.y)
@@ -128,6 +137,18 @@ class Enemy(AnimatedSprite):
         if 0 < playerDistance < wallDistance or not wallDistance:
             return True
         return False
+
+    def movement(self):
+        nextPosition = self.game.player.mapPosition
+        nextPositionX, nextPositionY = nextPosition
+
+        if MODE == 'Test' and TESTMODE == '2D' and PATH_FINDING_SETTING is True:
+            pg.draw.rect(self.game.screen, 'green', (100 * nextPositionX, 100 * nextPositionY, 100, 100))
+        if nextPosition not in self.game.spriteManager.enemyPositions:
+            angle = math.atan2(nextPositionY + 0.5 - self.y, nextPositionX + 0.5 - self.x)
+            ex = math.cos(angle) * self.movementSpeed
+            ey = math.sin(angle) * self.movementSpeed
+            self.wallCollusion(ex, ey)
 
     def update(self):
         self.durationCheck()
