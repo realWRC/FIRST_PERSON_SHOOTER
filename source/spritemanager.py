@@ -1,6 +1,7 @@
 from source.sprites import *
 from source.enemies import *
 
+
 class SpriteManager:
     """Controls which sprites are used"""
 
@@ -15,7 +16,7 @@ class SpriteManager:
         self.enemySpritePath = 'resources/sprites/enemies/'
         addSprite = self.addSprite
         addEnemy = self.addEnemy
-        
+
         addSprite(Sprite(game))
         addSprite(AnimatedSprite(game))
 
@@ -25,14 +26,20 @@ class SpriteManager:
     def addSprite(self, sprite):
         """Adds given sprite to sprite list"""
         self.spriteList.append(sprite)
-    
+
     def addEnemy(self, npc):
         """Adds given enemy to enemy list"""
         self.enemyList.append(npc)
 
     def update(self):
         """Calls update method for every sprite in spriteList"""
-        self.enemyPositions = {enemy.enemyMapPosition for enemy in self.enemyList if enemy.alive}
+        self.enemyPositions = set()
+        for enemy in self.enemyList:
+            if enemy.alive:
+                self.enemyPositions.add(enemy.enemyMapPosition)
+
         for sprite in self.spriteList:
             sprite.update()
-        [enemy.update() for enemy in self.enemyList]
+
+        for enemy in self.enemyList:
+            enemy.update()

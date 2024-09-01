@@ -61,13 +61,16 @@ class Player:
                 self.game.audio.shotgun.play()
                 self.fire = True
                 self.game.weapon.reload = True
- 
+
     def getDamage(self, damage):
         """Controls How much damage the player gets"""
-        self.health -= damage
+        if MODE == 'Test' or INFINITE_HEALTH is True:
+            pass
+        else:
+            self.health -= damage
         self.game.audio.playerPain.play()
         self.check_game_over()
-    
+
     def check_game_over(self):
         if self.health < 1:
             self.game.renderer.drawGameOver()

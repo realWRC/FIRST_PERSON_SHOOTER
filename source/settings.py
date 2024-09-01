@@ -8,11 +8,13 @@ import math
 #     pg.quit()
 #     return int(screen.current_w * scale), int(screen.current_h * scale)
 
-# MODE SETTINGS
+# DEVELOPER SETTINGS
 MODE = '3D'
 TESTMODE = '2D'
 LINEOFSIGHT = False
 PATH_FINDING_SETTING = True
+# Cheats
+INFINITE_HEALTH = True
 
 # DISPLAY SETTINGS
 RES = WIDTH, HEIGHT = 1600, 900

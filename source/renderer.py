@@ -54,7 +54,7 @@ class Renderer:
             GROUND_COLOR,
             (0, HALF_HEIGHT, WIDTH, HEIGHT)
         )
-    
+
     def drawGameOver(self):
         """Renders game over screen"""
         self.screen.blit(self.gameOver, (0, 0))
