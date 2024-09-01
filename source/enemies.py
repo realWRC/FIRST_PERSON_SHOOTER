@@ -67,6 +67,67 @@ class Enemy(AnimatedSprite):
                 self.deathAnimation.rotate(-1)
                 self.image = self.deathAnimation[0]
                 self.animationFrameCounter += 1
+    
+    @property
+    def enemyMapPosition(self):
+        return int(self.x), int(self.y)
+    
+    def rayCastSightLine(self):
+        if self.game.player.mapPosition == self.enemyMapPosition:
+            return True
+
+        vertWallDist, hortWallDist = 0, 0
+        vertPlayerDist, hortPlayerDist = 0, 0
+        px, py = self.game.player.position
+        mapX, mapY = self.game.player.mapPosition
+        rayAngle = self.thetaAngle
+        raySin = math.sin(rayAngle)
+        rayCos = math.cos(rayAngle)
+
+        # horizontals
+        yHort, dy = (mapY + 1, 1) if raySin > 0 else (mapY - 1e-6, -1)
+        depthHort = (yHort - py) / raySin
+        xHort = px + depthHort * rayCos
+        deltaChange = dy / raySin
+        dx = deltaChange * rayCos
+
+        for i in range(MAXIMUM_DEPTH):
+            tileHort = int(xHort), int(yHort)
+            if tileHort == self.enemyMapPosition:
+                hortPlayerDist = depthHort
+                break
+            if tileHort in self.game.map.gameWorld:
+                hortWallDist = depthHort
+                break
+            xHort += dx
+            yHort += dy
+            depthHort += deltaChange
+
+        # verticals
+        xVert, dx = (mapX + 1, 1) if rayCos > 0 else (mapX - 1e-6, -1)
+        depthVert = (xVert - px) / rayCos
+        yVert = py + depthVert * raySin
+        deltaChange = dx / rayCos
+        dy = deltaChange * raySin
+
+        for i in range(MAXIMUM_DEPTH):
+            tileVert = int(xVert), int(yVert)
+            if tileVert == self.enemyMapPosition:
+                vertPlayerDist = depthVert
+                break
+            if tileVert in self.game.map.gameWorld:
+                vertWallDist = depthVert
+                break
+            xVert += dx
+            yVert += dy
+            depthVert += deltaChange
+
+        playerDistance = max(vertPlayerDist, hortPlayerDist)
+        wallDistance = max(vertWallDist, hortWallDist)
+
+        if 0 < playerDistance < wallDistance or not wallDistance:
+            return True
+        return False
 
     def update(self):
         self.durationCheck()
