@@ -55,6 +55,18 @@ class Enemy(AnimatedSprite):
                 self.animate(self.idleAnimtion)
         else:
             self.animateDeath()
+    
+    def animatePain(self):
+        self.animate(self.painAnimation)
+        if self.animationTrigger:
+            self.pain = False
+    
+    def animateDeath(self):
+        if not self.alive:
+            if self.game.universalTrigger and self.animationFrameCounter < len(self.deathAnimation) - 1:
+                self.deathAnimation.rotate(-1)
+                self.image = self.deathAnimation[0]
+                self.animationFrameCounter += 1
 
     def update(self):
         self.durationCheck()
