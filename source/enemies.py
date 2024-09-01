@@ -134,3 +134,15 @@ class Enemy(AnimatedSprite):
         self.getSprite()
         self.enemyLogic()
         self.testDraw()
+    
+    def testDraw(self):
+        if MODE == 'Test' and TESTMODE == '2D':
+            pg.draw.circle(self.game.screen, 'red', (100 * self.x, 100 * self.y), 15)
+            if self.rayCastSightLine():
+                pg.draw.line(
+                    self.game.screen,
+                    'purple',
+                    (100 * self.game.player.x, 100 * self.game.player.y),
+                    (100 * self.x, 100 * self.y),
+                    2
+                )
