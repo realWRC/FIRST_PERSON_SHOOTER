@@ -69,9 +69,9 @@ class Player:
         else:
             self.health -= damage
         self.game.audio.playerPain.play()
-        self.check_game_over()
+        self.checkGame()
 
-    def check_game_over(self):
+    def checkGame(self):
         if self.health < 1:
             self.game.renderer.drawGameOver()
             pg.display.flip()
