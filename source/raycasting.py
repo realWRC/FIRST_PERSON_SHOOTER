@@ -67,17 +67,6 @@ class RayCasting:
                 xHort %= 1
                 displacement = (1 - xHort) if raySin > 0 else xHort
 
-            # depth *= math.cos(self.game.player.angle - rayAngle)
-            # projectionHeight = SCREEN_DISTANCE / (depth + 0.0001)
-
-            # # ray casting result
-            # self.rayCastResult.append(
-            #         (depth, projectionHeight, texture, displacement)
-            # )
-
-            # rayAngle += ANGLE_CHANGE
-            # Testing Logic
-
             if MODE == 'Test' and TESTMODE == '3D':
                 depth *= math.cos(self.game.player.angle - rayAngle)
                 projectionHeight = SCREEN_DISTANCE / (depth + 0.0001)
