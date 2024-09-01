@@ -152,7 +152,10 @@ class Enemy(AnimatedSprite):
         return False
 
     def movement(self):
-        nextPosition = self.game.player.mapPosition
+        if PATH_FINDING_SETTING:
+            nextPosition = self.game.pathfinding.getRoute(self.enemyMapPosition, self.game.player.mapPosition)
+        else:
+            nextPosition = self.game.player.mapPosition
         nextPositionX, nextPositionY = nextPosition
 
         if MODE == 'Test' and TESTMODE == '2D' and PATH_FINDING_SETTING is True:

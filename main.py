@@ -9,6 +9,7 @@ from source.sprites import *
 from source.spritemanager import *
 from source.weapons import *
 from source.audio import *
+from source.pathfinding import *
 
 
 class Game:
@@ -41,6 +42,7 @@ class Game:
         self.spriteManager = SpriteManager(self)
         self.weapon = Weapon(self)
         self.audio = Audio(self)
+        self.pathfinding = PathFinding(self)
 
     def update(self):
         """Updates the state of the game"""

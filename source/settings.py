@@ -9,7 +9,7 @@ import math
 #     return int(screen.current_w * scale), int(screen.current_h * scale)
 
 # MODE SETTINGS
-MODE = '3D'
+MODE = 'Test'
 TESTMODE = '2D'
 LINEOFSIGHT = False
 PATH_FINDING_SETTING = True
