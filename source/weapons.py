@@ -9,7 +9,7 @@ class Weapon(AnimatedSprite):
             game,
             position=(11, 3.5),
             scale=2,
-            duration=55,
+            duration=50,
             path='resources/sprites/weapons/shotgun/0.png'
     ):
         """Initialises Weapon class"""
