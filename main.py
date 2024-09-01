@@ -56,7 +56,6 @@ class Game:
 
     def draw(self):
         """Renders the game in the window"""
-        # self.screen.fill('black')
         if MODE == 'Test':
             self.screen.fill('black')
             if TESTMODE == '2D':
