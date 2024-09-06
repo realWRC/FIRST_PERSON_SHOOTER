@@ -58,6 +58,8 @@ class Renderer:
     def drawGameOver(self):
         """Renders game over screen"""
         self.screen.blit(self.gameOver, (0, 0))
+        # game_font = pg.font.Font('')
+        
 
     def draw(self):
         """Calls/Executes rendering methods"""
