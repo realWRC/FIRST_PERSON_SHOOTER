@@ -17,6 +17,8 @@ class Renderer:
             'resources/textures/game_over.png',
             RES,
         )
+        self.gameFont = pg.font.Font('resources/fonts/Pixeltype.ttf', 50)
+        self.gameOptionsFont = pg.font.Font('resources/fonts/Pixeltype.ttf', 30)
 
     @staticmethod
     def getTexture(path, resolution=(TEXTURE_SIZE, TEXTURE_SIZE)):
@@ -58,8 +60,12 @@ class Renderer:
     def drawGameOver(self):
         """Renders game over screen"""
         self.screen.blit(self.gameOver, (0, 0))
-        # game_font = pg.font.Font('')
-        
+        self.gameOverSurface = self.gameFont.render("GAME OVER", False, 'red')
+        self.gameRestartSurface= self.gameOptionsFont.render("Restart (R)", False, 'red')
+        self.gameExitSurface = self.gameOptionsFont.render("Quit (ESC)", False, 'red')
+        self.gameOverRect = self.gameOverSurface.get_rect(midtop = (800, 100))
+        self.gameRestartRect = self.gameRestartSurface.get_rect(bottomleft = (200, 700))       
+        self.gameExitRect = self.gameExitSurface.get_rect(bottomright = (1400,700))
 
     def draw(self):
         """Calls/Executes rendering methods"""
