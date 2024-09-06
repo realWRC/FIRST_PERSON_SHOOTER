@@ -28,7 +28,8 @@ class Game:
         self.universalTrigger = False
         self.universalEvent = pg.USEREVENT + 0
         pg.time.set_timer(self.universalEvent, 40)
-        self.newGame()
+        self.active = True
+        # self.newGame()
 
     def newGame(self):
         """
@@ -75,14 +76,22 @@ class Game:
                 sys.exit()
             elif event.type == self.universalEvent:
                 self.universalTrigger = True
-            self.player.oneShotEvent(event)
+            if event.type == pg.KEYDOWN and event.key == pg.K_p:
+                if self.active:
+                    self.active = False
+                else:
+                    self.active = True
+            if self.active:
+                self.player.oneShotEvent(event)
 
     def run(self):
         """Executes the game loop"""
+        self.newGame()
         while True:
             self.listenEvents()
-            self.update()
-            self.draw()
+            if self.active:
+                self.update()
+                self.draw()
 
 
 if __name__ == "__main__":
