@@ -95,6 +95,7 @@ class Game:
         while True:
             self.listenEvents()
             if self.active:
+                # self.renderer.drawHealth()
                 self.update()
                 self.draw()
 

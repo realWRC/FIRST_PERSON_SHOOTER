@@ -76,9 +76,6 @@ class Player:
             self.game.renderer.drawGameOver()
             self.game.active = False
             self.game.gameOver = True
-            # pg.display.flip()
-            # pg.time.delay(3000)
-            # self.game.newGame()
 
     @property
     def position(self):
