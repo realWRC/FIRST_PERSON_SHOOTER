@@ -75,8 +75,12 @@ class Game:
                   (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
                 pg.quit()
                 sys.exit()
+
+            # Death Animation Timer Trigger
             elif event.type == self.universalEvent:
                 self.universalTrigger = True
+
+            # Shooting Event
             if self.active:
                 self.player.oneShotEvent(event)
             
@@ -86,6 +90,8 @@ class Game:
                     self.active = False
                 else:
                     self.active = True
+            
+            # Restart Game
             if (self.active == False or self.victory == True) and (event.type == pg.KEYDOWN and event.key == pg.K_r):
                 self.active = True
                 self.newGame()
