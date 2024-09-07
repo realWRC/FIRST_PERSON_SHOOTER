@@ -14,6 +14,7 @@ class Player:
         self.health = PLAYER_MAX_HEALTH
         self.relativePosition = 0
         self.fire = False
+        self.sprintMultiplier = 1
 
     def movement(self):
         """
@@ -25,7 +26,7 @@ class Player:
         angleSin = math.sin(self.angle)
         angleCos = math.cos(self.angle)
         px, py = 0, 0
-        speed = PLAYER_SPEED * self.game.deltaTime
+        speed = PLAYER_SPEED * self.sprintMultiplier * self.game.deltaTime
         speedSin = speed * angleSin
         speedCos = speed * angleCos
 

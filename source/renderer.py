@@ -73,16 +73,46 @@ class Renderer:
         pg.display.update(self.gameRestartRect)
         pg.display.update(self.gameExitRect)
     
-    def drawHealth(self):
+    def drawStats(self):
         """Renders the players health"""
         self.game.player.health
         self.playerHealthSurface = self.gameOptionsFont.render(f"{(self.game.player.health/PLAYER_MAX_HEALTH) * 100}%", False, 'red')
         self.playerHealthRect = self.playerHealthSurface.get_rect(topleft = (20, 20))
         self.screen.blit(self.playerHealthSurface, self.playerHealthRect)
         pg.display.update(self.playerHealthRect)
+    
+    def drawPauseMenu(self):
+        """Renders The Pause Menu"""
+        self.gamePauseSurface = self.gameFont.render("PAUSE MENU", False, 'red')
+        self.gameRestartSurface = self.gameOptionsFont.render("Restart (R)", False, 'red')
+        self.gameExitSurface = self.gameOptionsFont.render("Quit (ESC)", False, 'red')
+        self.gamePauseRect = self.gamePauseSurface.get_rect(midtop = (800, 100))
+        self.gameRestartRect = self.gameRestartSurface.get_rect(bottomleft = (200, 700))       
+        self.gameExitRect = self.gameExitSurface.get_rect(bottomright = (1400,700))
+        self.screen.blit(self.gamePauseSurface, self.gamePauseRect)
+        self.screen.blit(self.gameRestartSurface, self.gameRestartRect)
+        self.screen.blit(self.gameExitSurface, self.gameExitRect)
+        pg.display.update(self.gamePauseRect)
+        pg.display.update(self.gameRestartRect)
+        pg.display.update(self.gameExitRect)
+    
+    def drawVictory(self):
+        """Renders the Victory Screen"""
+        self.gameVictorySurface = self.gameFont.render("Victory", False, 'red')
+        self.gameRestartSurface = self.gameOptionsFont.render("Restart (R)", False, 'red')
+        self.gameExitSurface = self.gameOptionsFont.render("Quit (ESC)", False, 'red')
+        self.gameVictoryRect = self.gameVictorySurface.get_rect(midtop = (800, 100))
+        self.gameRestartRect = self.gameRestartSurface.get_rect(bottomleft = (200, 700))       
+        self.gameExitRect = self.gameExitSurface.get_rect(bottomright = (1400,700))
+        self.screen.blit(self.gameVictorySurface, self.gameVictoryRect)
+        self.screen.blit(self.gameRestartSurface, self.gameRestartRect)
+        self.screen.blit(self.gameExitSurface, self.gameExitRect)
+        pg.display.update(self.gameVictoryRect)
+        pg.display.update(self.gameRestartRect)
+        pg.display.update(self.gameExitRect)
 
     def draw(self):
         """Calls/Executes rendering methods"""
         self.drawSky()
         self.renderTextures()
-        self.drawHealth()
+        self.drawStats()

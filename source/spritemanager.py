@@ -10,6 +10,7 @@ class SpriteManager:
         self.game = game
         self.spriteList = []
         self.enemyList = []
+        self.enemyNumber = len(self.enemyList)
         self.enemyPositions = {}
         staticSpritePath = 'resources/sprites/static/'
         animatedSpritePath = 'resources/sprites/animated/'
@@ -34,12 +35,18 @@ class SpriteManager:
     def update(self):
         """Calls update method for every sprite in spriteList"""
         self.enemyPositions = set()
+        enemiesAlive = 0
         for enemy in self.enemyList:
             if enemy.alive:
                 self.enemyPositions.add(enemy.enemyMapPosition)
+                enemiesAlive += 1
 
         for sprite in self.spriteList:
             sprite.update()
 
         for enemy in self.enemyList:
             enemy.update()
+
+        if enemiesAlive == 0:
+            # self.game.active = False
+            self.game.victory = True
