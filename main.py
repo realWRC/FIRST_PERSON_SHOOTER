@@ -14,11 +14,16 @@ from source.pathfinding import *
 
 class Game:
     """
-    The class Game defines all methods that form the core game loop
+    The Game class encapsulates the core functionality of the game, managing the
+    game's initialization, updates, rendering, and event handling. It forms the
+    main game loop and provides a framework for interacting with game
+    components, such as the map, player, and audio.
     """
-
+    
     def __init__(self):
-        """Initi Game Instance"""
+        """
+        Initializes the game instance. This method sets up the game environment
+        """
         pg.init()
         if DISABLE_MOUSE_VISIBILITY is True:
             pg.mouse.set_visible(False)
@@ -34,8 +39,7 @@ class Game:
 
     def newGame(self):
         """
-        Starts a new instance of Game:
-            self.map - creates new map on every game
+        Starts a new instance of the game and initializes all components
         """
         self.map = Map(self)
         self.player = Player(self)
@@ -47,7 +51,10 @@ class Game:
         self.pathfinding = PathFinding(self)
 
     def update(self):
-        """Updates the state of the game"""
+        """
+        Updates the state of the game every frame using the core game
+        components
+        """
         self.player.update()
         self.raycasting.update()
         self.spriteManager.update()
@@ -57,7 +64,14 @@ class Game:
         pg.display.set_caption(f'{self.clock.get_fps():.1f}')
 
     def draw(self):
-        """Renders the game in the window"""
+        """
+        Renders the game onto the screen. Depending on the game mode, it
+        either:
+            - Fills the screen with black in test mode and renders the
+              map/player in a 2D representation.
+            - Uses the renderer to draw the full 3D game world and the
+              player's weapon.
+        """
         if MODE == 'Test':
             self.screen.fill('black')
             if TESTMODE == '2D':
@@ -68,8 +82,17 @@ class Game:
             self.weapon.draw()
 
     def eventLoop(self):
+        """
+        Handles all player inputs and game events. It listens for various
+        Pygame events, such as:
+            - Quit events (to exit the game).
+            - Keyboard inputs (such as pausing, restarting, sprinting)
+            - Custom universalEvent triggers (for animations)
+            - Player interaction events (e.g., firing a weapon or
+              sprinting)
+        """
         self.universalTrigger = False
-        """Listens for keyboard to exit the game"""
+        
         for event in pg.event.get():
             if event.type == pg.QUIT or\
                   (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
@@ -104,7 +127,9 @@ class Game:
                 
 
     def run(self):
-        """Executes the game loop"""
+        """
+        Runs/executes the core game loop
+        """
         self.newGame()
         while True:
             self.eventLoop()
