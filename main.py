@@ -14,12 +14,13 @@ from source.pathfinding import *
 
 class Game:
     """
-    The Game class encapsulates the core functionality of the game, managing the
-    game's initialization, updates, rendering, and event handling. It forms the
-    main game loop and provides a framework for interacting with game
-    components, such as the map, player, and audio.
+    The Game class encapsulates the core functionality of the game,
+    managing the game's initialization, updates, rendering, and
+    event handling. It forms the main game loop and provides a
+    framework for interacting with game components, such as the
+    map, player, and audio.
     """
-    
+
     def __init__(self):
         """
         Initializes the game instance. This method sets up the game environment
@@ -92,7 +93,7 @@ class Game:
               sprinting)
         """
         self.universalTrigger = False
-        
+
         for event in pg.event.get():
             if event.type == pg.QUIT or\
                   (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
@@ -106,25 +107,26 @@ class Game:
             # Shooting Event
             if self.active:
                 self.player.oneShotEvent(event)
-            
+
             # Pause Game
-            if event.type == pg.KEYDOWN and event.key == pg.K_p and self.gameOver == False:
+            if event.type == pg.KEYDOWN and event.key == pg.K_p and \
+                    self.gameOver is False:
                 if self.active:
                     self.active = False
                 else:
                     self.active = True
-            
+
             # Restart Game
-            if (self.active == False or self.victory == True) and (event.type == pg.KEYDOWN and event.key == pg.K_r):
+            if (self.active is False or self.victory is True) and \
+                    (event.type == pg.KEYDOWN and event.key == pg.K_r):
                 self.active = True
                 self.newGame()
-            
+
             # Sprinting
             if event.type == pg.KEYDOWN and event.key == pg.K_LSHIFT:
                 self.player.sprintMultiplier = 2
             if event.type == pg.KEYUP and event.key == pg.K_LSHIFT:
                 self.player.sprintMultiplier = 1
-                
 
     def run(self):
         """
