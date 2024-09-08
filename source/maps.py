@@ -15,10 +15,32 @@ mapOne = [
 
 
 class Map:
-    """Defines the class Map"""
+    """
+    The Map class represents the game world map, consisting of 2D
+    grid-like structure where each cell can contain different
+    values representing various game elements like walls or empty
+    spaces.
+
+    Attributes:
+        game (Game): An instance of the Game class, used to access
+                     the game environment.
+        map (list): A predefined 2D list representing the layout of
+                    the game world.
+        gameWorld (dict): A dictionary mapping coordinates to values
+                          in the game map.
+        horizontals (int): The number of horizontal rows in the map.
+        verticals (int): The number of vertical columns in the map.
+    """
 
     def __init__(self, game):
-        """Initialises and a Map"""
+        """
+        Initializes the Map class by loading the predefined map
+        layout and setting up attributes for use within the game.
+
+        Args:
+            game (Game): A reference to the main Game object that
+                         contains the game state and display surface.
+        """
         self.game = game
         self.map = mapOne
         self.gameWorld = {}
@@ -27,14 +49,25 @@ class Map:
         self.getMap()
 
     def getMap(self):
-        """Constructes the gameWorld"""
+        """
+        Populates the gameWorld dictionary with non-empty cells from the map.
+
+        Each non-zero cell in the map is stored in the gameWorld dictionary
+        with its coordinates as the key and the cell value as the value.
+        """
         for y, horizontal in enumerate(self.map):
             for x, value in enumerate(horizontal):
                 if value != 0:
                     self.gameWorld[(x, y)] = value
 
     def testDraw(self):
-        """Draws the Map for testing"""
+        """
+        Draws a simple 2D visual representation of the map for testing
+        purposes.
+
+        Each non-empty cell in the gameWorld is drawn as a white rectangle
+        on the screen, giving a visual overview of the game world layout.
+        """
         for point in self.gameWorld:
             pg.draw.rect(
                 self.game.screen,

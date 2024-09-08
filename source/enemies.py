@@ -3,7 +3,37 @@ from random import random, randint
 
 
 class Enemy(AnimatedSprite):
-    """Creates and controls enemies"""
+    """
+    The Enemy class defines the behavior, animations, and interactions
+    of the enemies in the game. It extends the AnimatedSprite class
+    and adds specific logic for movement, attacking the player,
+    detecting sightlines, and handling health and death states.
+
+    Attributes:
+        game (Game): A reference to the main game instance.
+        position (tuple): The initial position of the enemy on the map.
+        scale (float): The size scaling factor for the enemy sprite.
+        change (float): Animation speed change factor.
+        duration (int): Duration for enemy animation cycles.
+        path (str): Path to the enemy sprite resources.
+        attackAnimation (list): Frames for the enemy attack animation.
+        deathAnimation (list): Frames for the enemy death animation.
+        idleAnimation (list): Frames for the enemy idle animation.
+        painAnimation (list): Frames for the enemy pain animation.
+        searchAnimation (list): Frames for the enemy search animation.
+        attackRange (int): Distance within which the enemy can attack
+        the player.
+        movementSpeed (float): Speed of the enemy's movement.
+        size (int): The size used for collision detection.
+        health (int): Enemy's health points.
+        enemyDamage (int): Damage dealt by the enemy to the player.
+        percision (float): Accuracy of the enemy's attack.
+        alive (bool): Whether the enemy is alive.
+        pain (bool): Whether the enemy is in pain (after being hit).
+        sightLineCheker (bool): Flag indicating whether the player is in sight.
+        animationFrameCounter (int): Tracks the frame of the death animation.
+        searchActivate (bool): Flag for enabling the search animation.
+    """
 
     def __init__(
             self,
@@ -14,7 +44,19 @@ class Enemy(AnimatedSprite):
             duration=180,
             path='resources/sprites/enemies/trooper/0.png'
     ):
-        """Initialises the enemy class"""
+        """
+        Initializes the Enemy class by loading animations, setting the enemy's
+        stats, and defining initial parameters such as position, speed, and
+        health.
+
+        Args:
+            game (Game): Reference to the main game object.
+            position (tuple): Initial position of the enemy.
+            scale (float): Scaling factor for the enemy sprite.
+            change (float): Animation change rate.
+            duration (int): Animation duration cycle.
+            path (str): Path to the enemy sprite directory.
+        """
         super().__init__(game, position, scale, change, duration, path)
         self.attackAnimation = self.getFrames(self.path + '/attack')
         self.deathAnimation = self.getFrames(self.path + '/death')
@@ -34,6 +76,10 @@ class Enemy(AnimatedSprite):
         self.searchActivate = False
 
     def enemyLogic(self):
+        """
+        Defines the core logic for the enemy, including sightline detection,
+        movement, attacking, and handling pain and death animations.
+        """
         if self.alive:
             self.sightLineCheker = self.rayCastSightLine()
 
@@ -57,11 +103,19 @@ class Enemy(AnimatedSprite):
             self.animateDeath()
 
     def animatePain(self):
+        """
+        Plays the pain animation when the enemy is injured and resets the
+        pain flag once the animation is complete.
+        """
         self.animate(self.painAnimation)
         if self.animationTrigger:
             self.pain = False
 
     def animateDeath(self):
+        """
+        Plays the death animation when the enemy's health reaches zero,
+        advancing through the animation frames until completion.
+        """
         if not self.alive:
             if self.game.universalTrigger and self.animationFrameCounter\
                     < len(self.deathAnimation) - 1:
@@ -70,6 +124,11 @@ class Enemy(AnimatedSprite):
                 self.animationFrameCounter += 1
 
     def shotHitDetection(self):
+        """
+        Detects if the player's shot hits the enemy by checking whether
+        the player is firing and whether the enemy is within the player's
+        line of sight. If hit, the enemy takes damage.
+        """
         if self.sightLineCheker and self.game.player.fire:
             if HALF_WIDTH - self.spriteHalfWidth < self.screenX\
                     < HALF_WIDTH + self.spriteHalfWidth:
@@ -80,11 +139,20 @@ class Enemy(AnimatedSprite):
                 self.checkHealth()
 
     def checkHealth(self):
+        """
+        Checks the enemy's health, and if it drops below 1, the enemy is
+        considered dead, triggering the death animation and sound effect.
+        """
         if self.health < 1:
             self.alive = False
             self.game.audio.enemyDeath.play()
 
     def attack(self):
+        """
+        Executes the enemy's attack logic. If the enemy is within attack
+        range and the animation is triggered, the enemy fires at the player,
+        dealing damage based on a random precision check.
+        """
         if self.animationTrigger:
             if MODE != 'Test':
                 self.game.audio.enemyFire.play()
@@ -93,12 +161,32 @@ class Enemy(AnimatedSprite):
 
     @property
     def enemyMapPosition(self):
+        """Returns the enemy's current position on the game map grid."""
         return int(self.x), int(self.y)
 
     def getWallBounds(self, x, y):
+        """
+        Checks whether a given coordinate on the map is a wall or an open
+        space.
+
+        Args:
+            x (int): X coordinate to check.
+            y (int): Y coordinate to check.
+
+        Returns:
+            bool: True if the given position is not a wall, False otherwise.
+        """
         return (x, y) not in self.game.map.gameWorld
 
     def rayCastSightLine(self):
+        """
+        Performs a raycast from the enemy's position to the player's position
+        to detect whether the player is within line of sight without any walls
+        blocking the view.
+
+        Returns:
+            bool: True if the player is in sight, False otherwise.
+        """
         if self.game.player.mapPosition == self.enemyMapPosition:
             return True
 
@@ -156,6 +244,11 @@ class Enemy(AnimatedSprite):
         return False
 
     def movement(self):
+        """
+        Moves the enemy towards the player's position. Depending on the game's
+        pathfinding setting, the enemy can either follow a pre-calculated route
+        or move directly toward the player.
+        """
         if PATH_FINDING_SETTING:
             nextPosition = self.game.pathfinding.getRoute(
                     self.enemyMapPosition,
@@ -182,18 +275,34 @@ class Enemy(AnimatedSprite):
             self.wallCollusion(ex, ey)
 
     def wallCollusion(self, dx, dy):
+        """
+        Checks for wall collisions and updates the enemy's position
+        accordingly.
+
+        Args:
+            dx (float): Change in the enemy's X position.
+            dy (float): Change in the enemy's Y position.
+        """
         if self.getWallBounds(int(self.x + dx * self.size), int(self.y)):
             self.x += dx
         if self.getWallBounds(int(self.x), int(self.y + dy * self.size)):
             self.y += dy
 
     def update(self):
+        """
+        Updates the enemy's state by checking animations, executing
+        logic, and drawing test visuals if in debug mode.
+        """
         self.durationCheck()
         self.getSprite()
         self.enemyLogic()
         self.testDraw()
 
     def testDraw(self):
+        """
+        Draws visual elements for debugging, such as the enemy's
+        position and sightline, when the game is in test mode.
+        """
         if MODE == 'Test' and TESTMODE == '2D':
             pg.draw.circle(
                     self.game.screen,

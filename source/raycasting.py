@@ -4,17 +4,42 @@ from source.settings import *
 
 
 class RayCasting:
-    """Defines the ray casting method to achieve 2.5 D"""
+    """
+    The RayCasting class defines the raycasting logic used to achieve a
+    2.5D rendering effect. It simulates 3D perspectives in a 2D environment
+    by casting rays from the player's position and calculating distances to
+    the nearest walls, projecting them onto the screen.
+
+    Attributes:
+        game (Game): Reference to the main game instance.
+        rayCastResult (list): Stores the results of each raycast, including
+                              depth and texture information.
+        objectRenderList (list): Stores the objects (walls) that need to be
+                                 rendered on screen.
+        textures (dict): A dictionary of wall textures used for rendering
+                         walls.
+    """
 
     def __init__(self, game):
-        """Initialises teh RayCast class with the game instance"""
+        """
+        Initializes the RayCasting class by linking it to the game instance
+        and loading the wall textures for rendering.
+
+        Args:
+            game (Game): A reference to the main game object.
+        """
         self.game = game
         self.rayCastResult = []
         self.objectRenderList = []
         self.textures = self.game.renderer.wallTextures
 
     def rayCast(self):
-        """Defines raycasting logic"""
+        """
+        Implements the raycasting logic. For each ray, this method calculates
+        the distance to the nearest vertical and horizontal walls, determines
+        the wall texture, and adjusts for player movement and viewing angle.
+        The result is used to render 2.5D visuals.
+        """
         self.rayCastResult = []
         px, py = self.game.player.position
         mapX, mapY = self.game.player.mapPosition
@@ -98,7 +123,12 @@ class RayCasting:
             rayAngle += ANGLE_CHANGE
 
     def getObjectRenderList(self):
-        """Get object render list"""
+        """
+        Prepares a list of objects (walls) to be rendered based on the results
+        of the raycasting. This includes determining the size of the wall
+        strips and their position on the screen based on distance from the
+        player.
+        """
         self.objectRenderList = []
         for ray, values in enumerate(self.rayCastResult):
             depth, projectionHeight, texture, displacement = values
@@ -126,6 +156,10 @@ class RayCasting:
             self.objectRenderList.append((depth, wallStrip, position))
 
     def update(self):
-        """Updates the RayCast state"""
+        """
+        Updates the raycasting calculations by running the rayCast method to
+        determine which walls are visible and how they should be rendered,
+        followed by preparing the object render list for display.
+        """
         self.rayCast()
         self.getObjectRenderList()

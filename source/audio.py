@@ -2,10 +2,25 @@ import pygame as pg
 
 
 class Audio:
-    """Controls all audio/sound effects"""
+    """
+    The Audio class is responsible for managing all in-game sound effects,
+    including loading and playing audio resources such as player and enemy
+    sounds.
+
+    Core Attributes:
+        game (Game): A reference to the main Game object.
+        path (str): The path to the folder where audio files are stored.
+    """
 
     def __init__(self, game):
-        """Initialises all audio resources"""
+        """
+        Initializes the Audio class by setting up the audio system and loading
+        various sound effects. The Pygame mixer is initialized to handle the
+        playback of audio files.
+
+        Args:
+            game (Game): A reference to the main Game object for context.
+        """
         pg.mixer.init()
         self.path = 'resources/audio/'
         self.shotgun = pg.mixer.Sound(self.path + 'shotgun_shot.wav')

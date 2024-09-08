@@ -4,10 +4,30 @@ import math
 
 
 class Player:
-    """Defines the Player"""
+    """
+    The Player class defines the player's attributes, movement, and interaction
+    with the game world. It handles input from the keyboard and mouse to
+    control player movement and shooting, and manages the player's health and
+    collision detection.
+
+    Attributes:
+        game (Game): Reference to the main game instance.
+        x, y (float): Player's position on the map.
+        angle (float): Player's facing direction in radians.
+        health (int): Player's health points.
+        relativePosition (int): Horizontal mouse movement for aiming.
+        fire (bool): Whether the player is currently firing a weapon.
+        sprintMultiplier (int): Multiplier for player's speed during sprinting.
+    """
 
     def __init__(self, game):
-        """Initialises an instance of Player"""
+        """
+        Initializes the Player instance, setting its position, angle, health,
+        and input-related attributes.
+
+        Args:
+            game (Game): A reference to the main game instance.
+        """
         self.game = game
         self.x, self.y = PLAYER_POSITION
         self.angle = PLAYER_ANGLE
@@ -18,10 +38,10 @@ class Player:
 
     def movement(self):
         """
-        Controls movement of the player
-            - speed is multiplies by deltaTime
-              to keep the player speed independent
-              of the frame rate
+        Handles movement controls for the player. Movement speed is scaled
+        by deltaTime to ensure consistency across frame rates. Players can
+        move in all four cardinal directions (WASD) and rotate if rotation
+        keys are enabled.
         """
         angleSin = math.sin(self.angle)
         angleCos = math.cos(self.angle)
@@ -55,7 +75,11 @@ class Player:
         self.angle %= math.tau
 
     def oneShotEvent(self, event):
-        """Listens for shoot input from left mouse button"""
+        """
+        Listens for input from the left mouse button to handle the player's
+        shooting action. When the left mouse button is clicked, the player
+        shoots a weapon if it's not already firing or reloading.
+        """
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.fire and\
                     not self.game.weapon.reload:
@@ -64,7 +88,11 @@ class Player:
                 self.game.weapon.reload = True
 
     def getDamage(self, damage):
-        """Controls How much damage the player gets"""
+        """
+        Reduces the player's health by the specified damage amount.
+        Triggers sound effects for player pain and checks if the player's
+        health has dropped below zero, ending the game if necessary.
+        """
         if MODE == 'Test' or INFINITE_HEALTH is True:
             pass
         else:
@@ -73,6 +101,10 @@ class Player:
         self.checkGame()
 
     def checkGame(self):
+        """
+        Checks whether the player's health has fallen below one. If so,
+        the game is considered over, and the game over screen is displayed.
+        """
         if self.health < 1:
             self.game.renderer.drawGameOver()
             self.game.active = False
@@ -80,20 +112,32 @@ class Player:
 
     @property
     def position(self):
-        """Returns Current Player Position"""
+        """
+        Returns the player's current position on the map as a tuple (x, y).
+        """
         return self.x, self.y
 
     @property
     def mapPosition(self):
-        """Returns the tile on which the player is on"""
+        """
+        Returns the player's position on the game map in terms of tile
+        coordinates.
+        """
         return int(self.x), int(self.y)
 
     def getWallBounds(self, x, y):
-        """Returns position if there is no wall"""
+        """
+        Checks if the given coordinates (x, y) are within the boundaries of
+        the game's world and are not occupied by a wall.
+        """
         return (x, y) not in self.game.map.gameWorld
 
     def wallCollision(self, px, py):
-        """Collision detection logic for player and walls"""
+        """
+        Handles collision detection for the player. Prevents the player from
+        passing through walls by adjusting the player's position based on
+        nearby walls.
+        """
         playerScale = PLAYER_SIZE_SCALE / self.game.deltaTime
         if self.getWallBounds(int(self.x + px * playerScale), int(self.y)):
             self.x += px
@@ -101,7 +145,11 @@ class Player:
             self.y += py
 
     def mouseControl(self):
-        """Controls Player object with mouse"""
+        """
+        Controls the player's aim using the mouse. The player's angle is
+        updated based on horizontal mouse movement, and the cursor is
+        confined to the screen.
+        """
         mx, my = pg.mouse.get_pos()
         if mx < MOUSES_LEFT_BORDER or mx > MOUSES_RIGHT_BORDER:
             pg.mouse.set_pos([HALF_WIDTH, HALF_HEIGHT])
@@ -114,7 +162,11 @@ class Player:
             self.game.deltaTime
 
     def testDraw(self):
-        """Created a 2d representation of the player on 2D map"""
+        """
+        Renders a simple 2D representation of the player for testing
+        purposes. If the line of sight feature is enabled, it also
+        draws a red line indicating the player's current view direction.
+        """
         if LINEOFSIGHT is True:
             pg.draw.line(
                 self.game.screen, "red", (self.x * 100, self.y * 100),
@@ -132,5 +184,10 @@ class Player:
         )
 
     def update(self):
+        """
+        Updates the player's state in each frame. This includes handling
+        movement, mouse input, and updating the player's position on the
+        map.
+        """
         self.movement()
         self.mouseControl()
