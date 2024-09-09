@@ -328,7 +328,7 @@ class DeathKnight(Enemy):
     def __init__(
             self,
             game,
-            position=(6, 4),
+            position=(5.5, 4),
             scale=1.1,
             change=0.05,
             duration=250,
@@ -365,22 +365,22 @@ class DeathKnight(Enemy):
             self.game.audio.enemyDeath.play()
 
 
-class Baron(Enemy):
+class Arachnotron(Enemy):
     def __init__(
             self,
             game,
-            position=(6, 4),
-            scale=1.1,
-            change=0.05,
+            position=(4.5, 10),
+            scale=1.6,
+            change=0.0001,
             duration=250,
-            path='resources/sprites/enemies/death_knight/0.png'
+            path='resources/sprites/enemies/arachnotron/0.png'
     ):
         super().__init__(game, position, scale, change, duration, path)
         self.attackRange = 6
         self.health = 300
-        self.movementSpeed = 0.01
+        self.movementSpeed = 0.04
         self.enemyDamage = 20
-        self.percision = 0.17
+        self.percision = 0.2
 
     def attack(self):
         """
@@ -402,5 +402,5 @@ class Baron(Enemy):
         if self.health < 1:
             self.alive = False
             self.game.player.killedEnemy = True
-            self.game.spriteManager.enemyHealthRecoupe = 50
+            self.game.spriteManager.enemyHealthRecoupe = 100
             self.game.audio.enemyDeath.play()

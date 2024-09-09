@@ -42,6 +42,7 @@ class SpriteManager:
         # Stationary Sprites
         addSprite(Sprite(game))
         addSprite(AnimatedSprite(game))
+        addSprite(Arachnotron(game))
 
         # Enemies
         addEnemy(Enemy(game))
