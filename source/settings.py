@@ -1,18 +1,13 @@
 import pygame as pg
 import math
 
-# def calculateResolution(scale=1):
-#     """Calculates screen resolution for dynamic screen sizing"""
-#     pg.init()
-#     screen = pg.display.Info()
-#     pg.quit()
-#     return int(screen.current_w * scale), int(screen.current_h * scale)
 
 # DEVELOPER SETTINGS
 MODE = '3D'
-TESTMODE = '2D'
+TESTMODE = '3D'
 LINEOFSIGHT = False
 PATH_FINDING_SETTING = True
+
 # Cheats
 INFINITE_HEALTH = False
 
@@ -28,13 +23,13 @@ TEXTURE_SIZE = 256
 HALF_TEXTURE_SIZE = TEXTURE_SIZE // 2
 
 # PLAYER SETTINGS
-PLAYER_POSITION = 1.5, 5
+PLAYER_POSITION = 2, 2
 PLAYER_ANGLE = 0
 PLAYER_SPEED = 0.004
 PLAYER_SPRINT_MULTIPLIER = 2
 PLAYER_ROTATION_SPEED = 0.002
 PLAYER_SIZE_SCALE = 60
-PLAYER_MAX_HEALTH = 1000
+PLAYER_MAX_HEALTH = 100
 
 # GAMEPLAY SETTINGS
 # Mouse

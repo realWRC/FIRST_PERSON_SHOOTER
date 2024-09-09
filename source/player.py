@@ -34,6 +34,7 @@ class Player:
         self.health = PLAYER_MAX_HEALTH
         self.relativePosition = 0
         self.fire = False
+        self.killedEnemy = False
         self.sprintMultiplier = 1
 
     def movement(self):
@@ -191,3 +192,9 @@ class Player:
         """
         self.movement()
         self.mouseControl()
+        if self.killedEnemy == True:
+            print(self.game.spriteManager.enemyHealthRecoupe)
+            self.health += self.game.spriteManager.enemyHealthRecoupe
+            self.killedEnemy = False
+        if self.health > PLAYER_MAX_HEALTH:
+            self.health = PLAYER_MAX_HEALTH

@@ -38,7 +38,7 @@ class Enemy(AnimatedSprite):
     def __init__(
             self,
             game,
-            position=(4, 4),
+            position=(6, 1.5),
             scale=0.8,
             change=0.27,
             duration=180,
@@ -117,6 +117,9 @@ class Enemy(AnimatedSprite):
         advancing through the animation frames until completion.
         """
         if not self.alive:
+            # if self.animationFrameCounter == 0:
+            #     self.game.player.killedEnemy = True
+            #     self.game.spriteManager.enemyHealthRecoupe = 10
             if self.game.universalTrigger and self.animationFrameCounter\
                     < len(self.deathAnimation) - 1:
                 self.deathAnimation.rotate(-1)
@@ -145,6 +148,8 @@ class Enemy(AnimatedSprite):
         """
         if self.health < 1:
             self.alive = False
+            self.game.player.killedEnemy = True
+            self.game.spriteManager.enemyHealthRecoupe = 10
             self.game.audio.enemyDeath.play()
 
     def attack(self):
@@ -318,3 +323,84 @@ class Enemy(AnimatedSprite):
                     (100 * self.x, 100 * self.y),
                     2
                 )
+
+class DeathKnight(Enemy):
+    def __init__(
+            self,
+            game,
+            position=(6, 4),
+            scale=1.1,
+            change=0.05,
+            duration=250,
+            path='resources/sprites/enemies/death_knight/0.png'
+    ):
+        super().__init__(game, position, scale, change, duration, path)
+        self.attackRange = 6
+        self.health = 300
+        self.movementSpeed = 0.01
+        self.enemyDamage = 20
+        self.percision = 0.17
+
+    def attack(self):
+        """
+        Executes the enemy's attack logic. If the enemy is within attack
+        range and the animation is triggered, the enemy fires at the player,
+        dealing damage based on a random precision check.
+        """
+        if self.animationTrigger:
+            if MODE != 'Test':
+                self.game.audio.minigun.play()
+                if random() < self.percision:
+                    self.game.player.getDamage(self.enemyDamage)
+    
+    def checkHealth(self):
+        """
+        Checks the enemy's health, and if it drops below 1, the enemy is
+        considered dead, triggering the death animation and sound effect.
+        """
+        if self.health < 1:
+            self.alive = False
+            self.game.player.killedEnemy = True
+            self.game.spriteManager.enemyHealthRecoupe = 50
+            self.game.audio.enemyDeath.play()
+
+
+class Baron(Enemy):
+    def __init__(
+            self,
+            game,
+            position=(6, 4),
+            scale=1.1,
+            change=0.05,
+            duration=250,
+            path='resources/sprites/enemies/death_knight/0.png'
+    ):
+        super().__init__(game, position, scale, change, duration, path)
+        self.attackRange = 6
+        self.health = 300
+        self.movementSpeed = 0.01
+        self.enemyDamage = 20
+        self.percision = 0.17
+
+    def attack(self):
+        """
+        Executes the enemy's attack logic. If the enemy is within attack
+        range and the animation is triggered, the enemy fires at the player,
+        dealing damage based on a random precision check.
+        """
+        if self.animationTrigger:
+            if MODE != 'Test':
+                self.game.audio.minigun.play()
+                if random() < self.percision:
+                    self.game.player.getDamage(self.enemyDamage)
+    
+    def checkHealth(self):
+        """
+        Checks the enemy's health, and if it drops below 1, the enemy is
+        considered dead, triggering the death animation and sound effect.
+        """
+        if self.health < 1:
+            self.alive = False
+            self.game.player.killedEnemy = True
+            self.game.spriteManager.enemyHealthRecoupe = 50
+            self.game.audio.enemyDeath.play()

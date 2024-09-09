@@ -28,3 +28,4 @@ class Audio:
         self.enemyDeath = pg.mixer.Sound(self.path + 'enemy_death.wav')
         self.enemyFire = pg.mixer.Sound(self.path + 'enemy_attack.wav')
         self.playerPain = pg.mixer.Sound(self.path + 'player_pain.wav')
+        self.minigun = pg.mixer.Sound(self.path + 'minigun.wav')

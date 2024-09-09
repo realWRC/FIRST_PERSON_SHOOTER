@@ -32,17 +32,20 @@ class SpriteManager:
         self.enemyList = []
         self.enemyNumber = len(self.enemyList)
         self.enemyPositions = {}
+        self.enemyHealthRecoupe = 0
         staticSpritePath = 'resources/sprites/static/'
         animatedSpritePath = 'resources/sprites/animated/'
         self.enemySpritePath = 'resources/sprites/enemies/'
         addSprite = self.addSprite
         addEnemy = self.addEnemy
 
+        # Stationary Sprites
         addSprite(Sprite(game))
         addSprite(AnimatedSprite(game))
 
+        # Enemies
         addEnemy(Enemy(game))
-        addEnemy(Enemy(game, position=(3, 4)))
+        addEnemy(DeathKnight(game))
 
     def addSprite(self, sprite):
         """
