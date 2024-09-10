@@ -61,6 +61,9 @@ class Renderer:
         return {
             1: self.getTexture('resources/textures/block_wall.png'),
             2: self.getTexture('resources/textures/brick_wall.png'),
+            3: self.getTexture('resources/textures/eagle.png'),
+            4: self.getTexture('resources/textures/block_wall_moss.png'),
+            5: self.getTexture('resources/textures/decorated_wall.png'),
         }
 
     def renderTextures(self):

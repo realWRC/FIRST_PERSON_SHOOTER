@@ -390,7 +390,7 @@ class DeathKnight(Enemy):
         if self.health < 1:
             self.alive = False
             self.game.player.killedEnemy = True
-            self.game.spriteManager.enemyHealthRecoupe = 50
+            self.game.spriteManager.enemyHealthRecoupe = 20
             self.game.audio.enemyDeath.play()
 
 
@@ -399,7 +399,7 @@ class CyberDemon(Enemy):
             self,
             game,
             position=(20, 19),
-            scale=1,
+            scale=1.3,
             change=0.01,
             duration=300,
             path='resources/sprites/enemies/cyber_demon/0.png'
@@ -419,7 +419,7 @@ class CyberDemon(Enemy):
         if self.health < 1:
             self.alive = False
             self.game.player.killedEnemy = True
-            self.game.spriteManager.enemyHealthRecoupe = 100
+            self.game.spriteManager.enemyHealthRecoupe = 30
             self.game.audio.enemyDeath.play()
 
 
@@ -428,7 +428,7 @@ class Arachnotron(Enemy):
             self,
             game,
             position=(4.5, 10),
-            scale=1.6,
+            scale=1.5,
             change=0.0001,
             duration=250,
             path='resources/sprites/enemies/arachnotron/0.png'
@@ -460,5 +460,5 @@ class Arachnotron(Enemy):
         if self.health < 1:
             self.alive = False
             self.game.player.killedEnemy = True
-            self.game.spriteManager.enemyHealthRecoupe = 100
+            self.game.spriteManager.enemyHealthRecoupe = 30
             self.game.audio.enemyDeath.play()

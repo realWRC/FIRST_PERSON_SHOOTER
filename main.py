@@ -140,6 +140,8 @@ class Game:
                 self.draw()
                 if self.victory:
                     self.renderer.drawVictory()
+            elif self.gameOver:
+                self.renderer.drawGameOver()
             else:
                 self.renderer.drawPauseMenu()
 

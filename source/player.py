@@ -193,8 +193,7 @@ class Player:
         self.movement()
         self.mouseControl()
         if self.killedEnemy == True:
-            print(self.game.spriteManager.enemyHealthRecoupe)
             self.health += self.game.spriteManager.enemyHealthRecoupe
+            if self.health > PLAYER_MAX_HEALTH:
+                self.health = PLAYER_MAX_HEALTH
             self.killedEnemy = False
-        if self.health > PLAYER_MAX_HEALTH:
-            self.health = PLAYER_MAX_HEALTH
