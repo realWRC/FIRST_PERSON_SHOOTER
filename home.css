@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 0;
+    padding-top: 50px
+}
+
+header {
+    background-color: #333;
+    min-height: 50px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+}
+.navbar li {
+    margin: 0 15px;
+}
+.navbar li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    text-align: center;
+}
+.navbar li a:hover {
+    background-color: #111;
+    border-radius: 4px;
+}
+
+footer {
+    min-height: 50px;
+    background: PapayaWhip;
+}
