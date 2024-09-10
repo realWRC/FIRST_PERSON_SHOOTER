@@ -38,6 +38,55 @@ header {
     border-radius: 4px;
 }
 
+.container #info p {
+    display: inline-block;
+}
+
+.container img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 100px;
+}
+
+#info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#info p {
+    display: inline-block;
+    margin-right: 40px;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    margin: 20px auto;
+    max-width: 1400px;
+    padding: 20px;
+}
+
+.descriptions video {
+    width: 700px;
+    height: 400px;
+}
+
+.descriptions h3 {
+    margin-bottom: 40px;
+}
+
+.descriptions p {
+    margin-bottom: 40px;
+    justify-content: right;
+}
+
+.descriptions {
+    margin-right: 40px;
+}
+
 footer {
     min-height: 100px;
     position: relative;
