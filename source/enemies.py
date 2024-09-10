@@ -324,6 +324,35 @@ class Enemy(AnimatedSprite):
                     2
                 )
 
+class Trooper(Enemy):
+    def __init__(
+            self,
+            game,
+            position=(6, 1.5),
+            scale=0.8,
+            change=0.27,
+            duration=180,
+            path='resources/sprites/enemies/trooper/0.png'
+    ):
+        super().__init__(game, position, scale, change, duration, path)
+        self.attackRange = randint(3, 5)
+        self.health = 100
+        self.movementSpeed = 0.04
+        self.enemyDamage = 10
+        self.percision = 0.15
+    
+    def checkHealth(self):
+        """
+        Checks the enemy's health, and if it drops below 1, the enemy is
+        considered dead, triggering the death animation and sound effect.
+        """
+        if self.health < 1:
+            self.alive = False
+            self.game.player.killedEnemy = True
+            self.game.spriteManager.enemyHealthRecoupe = 10
+            self.game.audio.enemyDeath.play()
+
+
 class DeathKnight(Enemy):
     def __init__(
             self,
@@ -362,6 +391,35 @@ class DeathKnight(Enemy):
             self.alive = False
             self.game.player.killedEnemy = True
             self.game.spriteManager.enemyHealthRecoupe = 50
+            self.game.audio.enemyDeath.play()
+
+
+class CyberDemon(Enemy):
+    def __init__(
+            self,
+            game,
+            position=(20, 19),
+            scale=1,
+            change=0.01,
+            duration=300,
+            path='resources/sprites/enemies/cyber_demon/0.png'
+    ):
+        super().__init__(game, position, scale, change, duration, path)
+        self.attackRange = 7
+        self.health = 300
+        self.movementSpeed = 0.03
+        self.enemyDamage = 20
+        self.percision = 0.17
+
+    def checkHealth(self):
+        """
+        Checks the enemy's health, and if it drops below 1, the enemy is
+        considered dead, triggering the death animation and sound effect.
+        """
+        if self.health < 1:
+            self.alive = False
+            self.game.player.killedEnemy = True
+            self.game.spriteManager.enemyHealthRecoupe = 100
             self.game.audio.enemyDeath.play()
 
 

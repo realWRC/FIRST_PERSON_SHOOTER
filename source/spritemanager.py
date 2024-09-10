@@ -42,11 +42,12 @@ class SpriteManager:
         # Stationary Sprites
         addSprite(Sprite(game))
         addSprite(AnimatedSprite(game))
-        addSprite(Arachnotron(game))
 
         # Enemies
-        addEnemy(Enemy(game))
+        addEnemy(Trooper(game))
         addEnemy(DeathKnight(game))
+        addEnemy(Arachnotron(game))
+        addEnemy(CyberDemon(game))
 
     def addSprite(self, sprite):
         """
