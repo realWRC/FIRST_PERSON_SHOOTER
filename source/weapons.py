@@ -63,7 +63,7 @@ class Weapon(AnimatedSprite):
         self.reload = False
         self.numFrames = len(self.frames)
         self.frameCounter = 0
-        self.damage = 300
+        self.damage = 150
 
     def draw(self):
         """

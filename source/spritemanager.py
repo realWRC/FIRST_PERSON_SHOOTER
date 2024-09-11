@@ -49,19 +49,19 @@ class SpriteManager:
         addSprite(AnimatedSprite(game, position=(3.5, 22.5)))
 
         # Enemies
-        # addEnemy(Trooper(game, position=(5.5, 1.5)))
-        # addEnemy(Trooper(game, position=(5.5, 6)))
-        # addEnemy(Trooper(game, position=(14.5, 3.5)))
-        # addEnemy(Trooper(game, position=(13.5, 8.5)))
-        # addEnemy(Trooper(game, position=(18.5, 11.5)))
-        # addEnemy(Trooper(game, position=(21.5, 7.5)))
-        # addEnemy(Trooper(game, position=(21, 19)))
-        # addEnemy(Trooper(game, position=(10.5, 11)))
-        # addEnemy(Trooper(game, position=(14.5, 17.5)))
-        # addEnemy(Trooper(game, position=(5, 24)))
-        # addEnemy(DeathKnight(game, position=(18.5, 5.5)))
+        addEnemy(Trooper(game, position=(5.5, 1.5)))
+        addEnemy(Trooper(game, position=(5.5, 6)))
+        addEnemy(Trooper(game, position=(14.5, 3.5)))
+        addEnemy(Trooper(game, position=(13.5, 8.5)))
+        addEnemy(Trooper(game, position=(18.5, 11.5)))
+        addEnemy(Trooper(game, position=(21.5, 7.5)))
+        addEnemy(Trooper(game, position=(21, 19)))
+        addEnemy(Trooper(game, position=(10.5, 11)))
+        addEnemy(Trooper(game, position=(14.5, 17.5)))
+        addEnemy(Trooper(game, position=(5, 24)))
+        addEnemy(DeathKnight(game, position=(18.5, 5.5)))
         addEnemy(CyberDemon(game, position=(20.5, 23)))
-        # addEnemy(Arachnotron(game, position=(6, 9)))
+        addEnemy(Arachnotron(game, position=(6, 9)))
 
     def addSprite(self, sprite):
         """
