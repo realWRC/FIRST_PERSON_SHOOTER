@@ -80,7 +80,7 @@ header {
     margin-right: auto;
     padding-top: 80px;
     padding-bottom: 10px;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 #logo:visited {
@@ -147,6 +147,8 @@ header {
     font-size: 50px;
     padding-top: 100px;
     margin-top: 0px;
+    margin-left: 20px;
+    text-decoration: underline;
 }
 
 #key-feature-header {
@@ -154,6 +156,7 @@ header {
     padding: 0px;
     margin: 0px;
     margin-top: 25px;
+    text-decoration: underline;
 }
 
 /*Featrue 1*/
@@ -245,6 +248,7 @@ header {
     padding-top: 100px;
     margin-top: 0px;
     text-align: center;
+    text-decoration: underline;
     /* margin-left: 50%; */
 }
 
@@ -264,16 +268,19 @@ header {
 #team {
     padding: auto;
     min-width: 700px;
+    margin-left: 100px;
 }
 
 #contacts {
     margin-bottom: 0px;
     padding-bottom: 0%;
+    text-decoration: underline;
 }
 
 #contact-heading {
     font-weight: 400;
     margin-bottom: 10px;
+    text-decoration: underline;
 }
 
 #sublink {
