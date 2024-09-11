@@ -87,6 +87,10 @@ header {
     color: black;
 }
 
+#logo:hover {
+  cursor: pointer;
+}
+
 /*Logo Text*/
 #logo-text {
     font-family: 'pdark';
@@ -129,6 +133,7 @@ header {
 .descriptions p {
     margin-bottom: 40px;
     justify-content: right;
+    text-align: justify;
 }
 
 .descriptions {
@@ -144,29 +149,34 @@ header {
     margin-top: 0px;
 }
 
+#key-feature-header {
+    font-size: 30px;
+    padding: 0px;
+    margin: 0px;
+    margin-top: 25px;
+}
+
 /*Featrue 1*/
 .container2 {
     display: flex;
     align-items: flex-start;
-    margin: 20px auto;
-    max-width: 1700px;
-    padding: 20px;
+    margin: 0px auto;
+    max-width: 1400px;
+    padding: 0px;
     justify-content: space-between;
 }
 
 .descriptions2 video {
     width: 600px;
     height: 400px;
-    margin-left: 50px;
-}
-
-.descriptions2 h3 {
-    margin-bottom: 40px;
+    margin-right: 100px;
 }
 
 .descriptions2 p {
     margin-bottom: 40px;
     justify-content: right;
+    margin-top: 30px;
+    text-align: justify;
 }
 
 .descriptions2 {
@@ -174,63 +184,59 @@ header {
 }
 
 /*Featrue 2*/
+
 .container3 {
     display: flex;
     align-items: flex-start;
-    margin: 20px auto;
-    max-width: 1700px;
-    padding: 20px;
+    margin: 0px auto;
+    max-width: 1400px;
+    padding: 0px;
     justify-content: space-between;
 }
 
 .descriptions3 video {
     width: 600px;
     height: 400px;
-    margin-left: 50px;
-}
-
-.descriptions3 h3 {
-    margin-bottom: 40px;
+    margin-left:100px;
 }
 
 .descriptions3 p {
     margin-bottom: 40px;
     justify-content: right;
+    margin-top: 30px;
+    text-align: justify;
 }
 
 .descriptions3 {
     margin-right: 50px;
 }
-
 /*Featrue 3*/
+
 .container4 {
     display: flex;
     align-items: flex-start;
-    margin: 20px auto;
-    max-width: 1700px;
-    padding: 20px;
+    margin: 0px auto;
+    max-width: 1400px;
+    padding: 0px;
     justify-content: space-between;
 }
 
 .descriptions4 video {
     width: 600px;
     height: 400px;
-    margin-left: 50px;
-}
-
-.descriptions4 h3 {
-    margin-bottom: 40px;
+    margin-right: 100px;
 }
 
 .descriptions4 p {
     margin-bottom: 40px;
     justify-content: right;
+    margin-top: 30px;
+    text-align: justify;
 }
 
 .descriptions4 {
     margin-right: 50px;
 }
-
 /*ABOUT*/
 
 #about {
@@ -251,8 +257,43 @@ header {
     justify-content: center;
 }
 
+#inspiration {
+    margin-top: 5px;
+}
+
+#team {
+    padding: auto;
+    min-width: 700px;
+}
+
+#contacts {
+    margin-bottom: 0px;
+    padding-bottom: 0%;
+}
+
+#contact-heading {
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+#sublink {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.socials-div a {
+    color: black;
+    text-decoration: none;
+    margin-left: 0px;
+    font-size: 24px;
+}
+
+.socials-div a:hover {
+    color: black;
+}
+
 .descriptions5 h3 {
-    margin-bottom: 40px;
+    margin-bottom: 0px;
 }
 
 .descriptions5 p {
@@ -263,7 +304,7 @@ header {
 .descriptions5 {
     margin-right: 50px;
     justify-content: center;
-    text-align: center;
+    text-align: justify;
     max-width: 800px;
 }
 
@@ -277,9 +318,24 @@ footer {
     align-items: center;
 }
 
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
 footer p {
     margin: 0;
-    margin-right: 80%;
+    min-width: 90px;
+    /* margin-right: 70% */
+}
+
+.copyright {
+    align-content: center;
+    min-width: 80%;
+}
+
+.social-links {
+    align-self: center;
 }
 
 .social-links a {
