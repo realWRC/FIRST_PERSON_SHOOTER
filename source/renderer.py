@@ -31,7 +31,7 @@ class Renderer:
             RES,
         )
         self.gameFont = pg.font.Font('resources/fonts/Halo3.ttf', 150)
-        self.gameOptionsFont = pg.font.Font('resources/fonts/Halo3.ttf', 80)
+        self.gameOptionsFont = pg.font.Font('resources/fonts/hyperion.ttf', 50)
 
     @staticmethod
     def getTexture(path, resolution=(TEXTURE_SIZE, TEXTURE_SIZE)):

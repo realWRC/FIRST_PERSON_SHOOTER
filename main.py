@@ -119,6 +119,8 @@ class Game:
             # Restart Game
             if (self.active is False or self.victory is True) and \
                     (event.type == pg.KEYDOWN and event.key == pg.K_r):
+                self.gameOver = False
+                self.victory = False
                 self.active = True
                 self.newGame()
 
