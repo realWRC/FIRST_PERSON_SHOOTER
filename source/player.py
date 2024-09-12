@@ -75,6 +75,18 @@ class Player:
 
         self.angle %= math.tau
 
+    def wallCollision(self, px, py):
+        """
+        Handles collision detection for the player. Prevents the player from
+        passing through walls by adjusting the player's position based on
+        nearby walls.
+        """
+        playerScale = PLAYER_SIZE_SCALE / self.game.deltaTime
+        if self.getWallBounds(int(self.x + px * playerScale), int(self.y)):
+            self.x += px
+        if self.getWallBounds(int(self.x), int(self.y + py * playerScale)):
+            self.y += py
+    
     def oneShotEvent(self, event):
         """
         Listens for input from the left mouse button to handle the player's
@@ -132,18 +144,6 @@ class Player:
         the game's world and are not occupied by a wall.
         """
         return (x, y) not in self.game.map.gameWorld
-
-    def wallCollision(self, px, py):
-        """
-        Handles collision detection for the player. Prevents the player from
-        passing through walls by adjusting the player's position based on
-        nearby walls.
-        """
-        playerScale = PLAYER_SIZE_SCALE / self.game.deltaTime
-        if self.getWallBounds(int(self.x + px * playerScale), int(self.y)):
-            self.x += px
-        if self.getWallBounds(int(self.x), int(self.y + py * playerScale)):
-            self.y += py
 
     def mouseControl(self):
         """
