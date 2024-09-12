@@ -32,6 +32,8 @@ class Game:
         self.clock = pg.time.Clock()
         self.deltaTime = 1
         self.universalTrigger = False
+
+        # Custom event that uses timer to speed up death animations
         self.universalEvent = pg.USEREVENT + 0
         pg.time.set_timer(self.universalEvent, 40)
         self.active = True
@@ -108,7 +110,7 @@ class Game:
             if self.active:
                 self.player.oneShotEvent(event)
 
-            # Pause Game
+            # Pause game logic
             if event.type == pg.KEYDOWN and event.key == pg.K_p and \
                     self.gameOver is False:
                 if self.active:
@@ -116,7 +118,7 @@ class Game:
                 else:
                     self.active = True
 
-            # Restart Game
+            # Restart game logic
             if (self.active is False or self.victory is True) and \
                     (event.type == pg.KEYDOWN and event.key == pg.K_r):
                 self.gameOver = False
@@ -124,7 +126,7 @@ class Game:
                 self.active = True
                 self.newGame()
 
-            # Sprinting
+            # Sprinting logic
             if event.type == pg.KEYDOWN and event.key == pg.K_LSHIFT:
                 self.player.sprintMultiplier = 2
             if event.type == pg.KEYUP and event.key == pg.K_LSHIFT:
