@@ -1,15 +1,14 @@
 import pygame as pg
 import sys
-from source.raycasting import *
+from source.raycasting import RayCasting
 from source.settings import *
-from source.maps import *
-from source.player import *
-from source.renderer import *
-from source.sprites import *
-from source.spritemanager import *
-from source.weapons import *
-from source.audio import *
-from source.pathfinding import *
+from source.maps import Map
+from source.player import Player
+from source.renderer import Renderer
+from source.spritemanager import SpriteManager
+from source.weapons import Weapon
+from source.audio import Audio
+from source.pathfinding import PathFinding
 
 
 class Game:
