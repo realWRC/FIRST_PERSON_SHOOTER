@@ -39,4 +39,11 @@ python3 main.py
 
 # Controls
 
-The standard WSAD keys are used for movement, the mouse to control the camera and left mouse button to shoot.
+The controls for the game include:
+
+w - move forward
+s - move backward
+a - straff left
+d - straff right
+mouse - aiming
+right mouse button - shoot
