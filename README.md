@@ -41,9 +41,11 @@ python3 main.py
 
 The controls for the game include:
 
+```
 w - move forward
 s - move backward
 a - straff left
 d - straff right
 mouse - aiming
 right mouse button - shoot
+```
